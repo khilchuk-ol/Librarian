@@ -3,6 +3,7 @@ using Librarian.Data.Repo.Impl;
 using Librarian.Data.Services;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace Librarian.Data
 {
@@ -15,6 +16,10 @@ namespace Librarian.Data
             var asc = new AuthorService(new AuthorRepository());
 
             Menu(rsc, asc, bsc);
+
+            Console.Clear();
+            Console.WriteLine("Bye");
+            Thread.Sleep(1000);
         }
 
         private static void Menu(ReaderService rs, AuthorService asc, BookService bs)
