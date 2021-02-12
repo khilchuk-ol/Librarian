@@ -31,7 +31,7 @@ namespace Librarian.Data
                 "e - exit");
             var inp = Console.ReadLine().Trim();
             
-            switch(inp)
+            switch(inp.Trim())
             {
                 case "b":
                 case "B":
@@ -61,7 +61,7 @@ namespace Librarian.Data
                 "any other symbol - return to menu");
             var inp = Console.ReadLine();
 
-            switch(inp)
+            switch(inp.Trim())
             {
                 case "t":
                 case "T":
@@ -133,7 +133,7 @@ namespace Librarian.Data
 
                     var inp = Console.ReadLine();
 
-                    switch (inp)
+                    switch (inp.Trim())
                     {
                         case "r":
                         case "R":
@@ -166,7 +166,7 @@ namespace Librarian.Data
                 "any other symbol - return to menu");
             var inp = Console.ReadLine();
 
-            switch (inp)
+            switch (inp.Trim())
             {
                 case "t":
                 case "T":
