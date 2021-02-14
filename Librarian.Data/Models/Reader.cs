@@ -4,8 +4,11 @@ using System.Linq;
 
 namespace Librarian.Data.Models
 {
-    public sealed class Reader : Entity
+    public sealed class Reader 
     {
+        private static int identity = 0;
+        public int Id { get; } = identity++;
+
         public int TicketNumber { get; }
 
         public string Name { get; set; }

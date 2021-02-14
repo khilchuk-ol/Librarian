@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Librarian.Data.Models;
 using Librarian.Data.Repo;
+using Librarian.Data.Strategies;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,5 +25,6 @@ namespace Librarian.Data.Services
 
             return Repository.FindAll().Where(a => a.Fullname.ToLower().Contains(query.Trim().ToLower())).ToHashSet(); 
         }
+
     }
 }

@@ -2,8 +2,11 @@
 
 namespace Librarian.Data.Models
 {
-    public sealed class Record : Entity
+    public sealed class Record
     {
+        private static int identity = 0;
+        public int Id { get; } = identity++;
+
         public DateTime BorrowDate { get; set; } = DateTime.Now;
         public DateTime? ReturnDate { get; set; }
 
