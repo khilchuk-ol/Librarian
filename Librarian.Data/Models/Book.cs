@@ -18,7 +18,7 @@ namespace Librarian.Data.Models
 
         public bool IsBorrowed { get; set; }
 
-        public ICollection<Author> Authors { get; private set; } = new HashSet<Author>();
-        public ICollection<Genre> Genres { get; private set; } = new HashSet<Genre>();
+        public IEnumerable<Author> Authors { get; private set; } = new HashSet<Author>();
+        public IEnumerable<Genre> Genres { get; private set; } = new HashSet<Genre>();
     }
 }

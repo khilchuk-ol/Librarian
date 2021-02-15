@@ -7,7 +7,7 @@ namespace Librarian.Data.Repo.Impl
 {
     public class AuthorRepository : IAuthorRepository
     {
-        public ICollection<Author> Find<TCriterion>(IFindStrategy<Author, TCriterion> strategy, TCriterion criterion)
+        public IEnumerable<Author> Find<TCriterion>(IFindStrategy<Author, TCriterion> strategy, TCriterion criterion)
         {
             if (strategy == null)
                 return null;
@@ -15,7 +15,7 @@ namespace Librarian.Data.Repo.Impl
             return DataBaseImitation.DBAuthors.Where(a => strategy.IsMatch(a, criterion)).ToHashSet();
         }
 
-        public ICollection<Author> FindAll()
+        public IEnumerable<Author> FindAll()
         {
             return DataBaseImitation.DBAuthors;
         }

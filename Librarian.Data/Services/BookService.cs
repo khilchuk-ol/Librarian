@@ -1,7 +1,8 @@
 ﻿using JetBrains.Annotations;
+using Librarian.Data.Factories.Impl;
 using Librarian.Data.Models;
 using Librarian.Data.Repo;
-using Librarian.Data.Strategies;
+using Librarian.Data.Strategies.TypesEnum;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,24 +17,28 @@ namespace Librarian.Data.Services
             Repository = repo;
         }
 
-        public ICollection<Book> FindBooksByTitle(string title)
+        public IEnumerable<Book> FindBooksByTitle(string title)
         {
             if(string.IsNullOrWhiteSpace(title))
             {
                 return null;
             }
 
-            return Repository.FindAll().Where(b => b.Title.ToLower().Contains(title.Trim().ToLower())).ToHashSet();
+            var str = FindStrategyFactory<Book, string>.Instance.Create<Book, string>(FindType.BookByTitle);
+
+            return Repository.Find(str, title).ToHashSet();
         }
 
-        public ICollection<Book> FindBooksByAuthor(Author a)
+        public IEnumerable<Book> FindBooksByAuthor(Author a)
         {
             if(a == null)
             {
                 return null;
             }
 
-            return Repository.FindAll().Where(b => b.Authors.Select(au => au.Id).ToList().Contains(a.Id)).ToHashSet();
+            var str = FindStrategyFactory<Book, int>.Instance.Create<Book, int>(FindType.BookByAuthor);
+
+            return Repository.Find(str, a.Id).ToHashSet();
         }
     }
 }

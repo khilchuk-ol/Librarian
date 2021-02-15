@@ -4,19 +4,13 @@ namespace Librarian.Data.Strategies.Impl
 {
     public class FindStrategy<TElement, TCriterion> : IFindStrategy<TElement, TCriterion>
     {
-        private Func<TElement, TCriterion, bool> filter;
+        private readonly Func<TElement, TCriterion, bool> _filter;
 
-        public FindStrategy(Func<TElement, TCriterion, bool> filterFunc)
+        public FindStrategy(Func<TElement, TCriterion, bool> filter)
         {
-            if (filter == null)
-                throw new ArgumentException("Bad argument for filter");
-
-            filter = filterFunc;
+            _filter = filter ?? throw new ArgumentException("Bad argument for filter");
         }
 
-        public bool IsMatch(TElement element, TCriterion criterion)
-        {
-            return filter(element, criterion);
-        }
+        public bool IsMatch(TElement element, TCriterion criterion) => _filter(element, criterion);
     }
 }

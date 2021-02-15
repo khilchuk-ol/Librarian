@@ -1,7 +1,8 @@
 ﻿using JetBrains.Annotations;
+using Librarian.Data.Factories.Impl;
 using Librarian.Data.Models;
 using Librarian.Data.Repo;
-using Librarian.Data.Strategies;
+using Librarian.Data.Strategies.TypesEnum;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,19 +17,23 @@ namespace Librarian.Data.Services
             Repository = repo;
         }
 
-        public ICollection<Reader> FindReadersByName(string query)
+        public IEnumerable<Reader> FindReadersByName(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
                 return null;
             }
 
-            return Repository.FindAll().Where(r => r.Fullname.ToLower().Contains(query.Trim().ToLower())).ToHashSet();
+            var str = FindStrategyFactory<Reader, string>.Instance.Create<Reader, string>(FindType.ReaderByName);
+
+            return Repository.Find(str, query).ToHashSet();
         }
 
-        public Reader FindReaderByTicket(int number)
+        public Reader FindReaderByTicket(int number) 
         {
-            return Repository.FindAll().Where(r => r.TicketNumber == number).FirstOrDefault();
+            var str = FindStrategyFactory<Reader, int>.Instance.Create<Reader, int>(FindType.ReaderByTicket);
+
+            return Repository.Find(str, number).FirstOrDefault();
         }
     }
 }
