@@ -6,8 +6,8 @@ namespace Librarian.Data.Repo
 {
     public interface IAuthorRepository
     {
-        ICollection<Author> FindAll();
+        IEnumerable<Author> FindAll();
 
-        ICollection<Author> Find<TCriterion>(IFindStrategy<Author, TCriterion> strategy, TCriterion criterion);
+        IEnumerable<Author> Find<TCriterion>(IFindStrategy<Author, TCriterion> strategy, TCriterion criterion);
     }
 }

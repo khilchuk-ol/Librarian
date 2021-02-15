@@ -88,7 +88,7 @@ namespace Librarian.Data
             if(res == null)
                 Console.WriteLine("Bad input");
 
-            if (res.Count == 0)
+            if (res.Count() == 0)
                 Console.WriteLine("Nothing was found");
             else
             {
@@ -193,7 +193,7 @@ namespace Librarian.Data
             if (authors == null)
                 Console.WriteLine("Bad input");
 
-            if (authors.Count == 0)
+            if (authors.Count() == 0)
                 Console.WriteLine("Nothing was found");
             else
             {
@@ -231,7 +231,7 @@ namespace Librarian.Data
             if (res == null)
                 Console.WriteLine("Bad input");
 
-            if (res.Count == 0)
+            if (res.Count() == 0)
                 Console.WriteLine("Nothing was found");
             else
             {
@@ -255,7 +255,7 @@ namespace Librarian.Data
 
             var list = r.ReturnedBooks;
 
-            if (list.Count == 0)
+            if (list.Count() == 0)
             {
                 Console.WriteLine("This reader has not returned any books yet");
             }
@@ -277,7 +277,7 @@ namespace Librarian.Data
 
             var list = r.CurrentlyBorrowedBooks;
 
-            if (list.Count == 0)
+            if (list.Count() == 0)
             {
                 Console.WriteLine("This reader has no borrowed books right now");
             }

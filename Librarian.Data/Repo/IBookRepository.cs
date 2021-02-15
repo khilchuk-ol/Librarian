@@ -6,8 +6,8 @@ namespace Librarian.Data.Repo
 {
     public interface IBookRepository
     {
-        ICollection<Book> FindAll();
+        IEnumerable<Book> FindAll();
 
-        ICollection<Book> Find<TCriterion>(IFindStrategy<Book, TCriterion> strategy, TCriterion criterion);
+        IEnumerable<Book> Find<TCriterion>(IFindStrategy<Book, TCriterion> strategy, TCriterion criterion);
     }
 }
