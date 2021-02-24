@@ -2,10 +2,8 @@
 {
     public enum FindType
     {
-        BookByTitle,
-        BookByAuthor,
-        ReaderByName,
-        ReaderByTicket,
-        AuthorByName
+        Book,
+        Reader,
+        Author
     }
 }

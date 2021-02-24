@@ -1,16 +1,17 @@
 ﻿using Librarian.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Librarian.Data
 {
     public static class DataBaseImitation
     {
-        public static ICollection<Book> DBBooks { get; set; } 
-        public static ICollection<Reader> DBReaders { get; set; } 
-        public static ICollection<Author> DBAuthors { get; set; } 
-        public static ICollection<Genre> DBGenres { get; set; }
-        public static ICollection<Record> DBRecords { get; set; }
+        public static IEnumerable<Book> DBBooks { get; set; } 
+        public static IEnumerable<Reader> DBReaders { get; set; } 
+        public static IEnumerable<Author> DBAuthors { get; set; } 
+        public static IEnumerable<Genre> DBGenres { get; set; }
+        public static IEnumerable<Record> DBRecords { get; set; }
 
         static DataBaseImitation()
         {
@@ -74,14 +75,14 @@ namespace Librarian.Data
                 ReaderId = js.Id
             };
 
-            tkam.Genres.Add(cl);
-            tkam.Authors.Add(hl);
-            tgb.Genres.Add(ft);
-            tgb.Authors.Add(ng);
-            ag.Genres.Add(ft);
-            ag.Authors.Add(ng);
-            js.Records.Add(rc1);
-            js.Records.Add(rc2);
+            tkam.Genres.Append(cl);
+            tkam.Authors.Append(hl);
+            tgb.Genres.Append(ft);
+            tgb.Authors.Append(ng);
+            ag.Genres.Append(ft);
+            ag.Authors.Append(ng);
+            js.Records.Append(rc1);
+            js.Records.Append(rc2);
 
             DBBooks = new HashSet<Book>
             {

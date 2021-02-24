@@ -1,7 +1,9 @@
-﻿namespace Librarian.Data.Strategies
+﻿using System.Linq;
+
+namespace Librarian.Data.Strategies
 {
     public interface IFindStrategy<TElement, TCriterion>
-    {
-        bool IsMatch(TElement element, TCriterion criterion);
+    { 
+        IQueryable<TElement> Find(IQueryable<TElement> elements, TCriterion criterion);
     }
 }

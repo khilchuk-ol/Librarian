@@ -8,10 +8,8 @@ using System.Linq;
 
 namespace Librarian.Data.Factories.Impl
 {
-    public class FindStrategyFactory<TElement, TCriterion> : IFindStrategyFactory<TElement, TCriterion>
+    public class FindStrategyFactory : IFindStrategyFactory
     {
-        private static readonly FindStrategyFactory<TElement, TCriterion> _instance = new FindStrategyFactory<TElement, TCriterion>();
-
         private static readonly IDictionary<FindType, Delegate> _predicates = new Dictionary<FindType, Delegate>
         {
             { FindType.BookByAuthor, (Func<Book, int, bool>)((b, id) => b.Authors.Select(au => au.Id).ToList().Contains(id)) },
@@ -21,11 +19,16 @@ namespace Librarian.Data.Factories.Impl
             { FindType.AuthorByName, (Func<Author, string, bool>)((a, s) => a.Fullname.ToLower().Contains(s.Trim().ToLower())) }
         };
 
-        public static FindStrategyFactory<TElement, TCriterion> Instance => _instance;
+        private static readonly IDictionary<FindType, IStrategy> _strategies = new Dictionary<FindType, IStrategy>
+        {
+            { FindType.BookByAuthor, new FindStrategy<Book, int>((b, id) => b.Authors.Select(au => au.Id).ToList().Contains(id)) }
+        };
 
-        private FindStrategyFactory() { }
+
+        /*public IFindStrategy<TElement, TCriterion> Create<TElement, TCriterion>(FindType type) =>
+            new FindStrategy<TElement, TCriterion>((Func<TElement, TCriterion, bool>)_predicates[type]);*/
 
         public IFindStrategy<TElement, TCriterion> Create<TElement, TCriterion>(FindType type) =>
-            new FindStrategy<TElement, TCriterion>((Func<TElement, TCriterion, bool>)_predicates[type]);
+            (IFindStrategy<TElement, TCriterion>)_strategies[type];
     }
 }

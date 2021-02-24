@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DataBaseImitation.cs" />
     <Compile Include="Factories\IFindStrategyFactory.cs" />
+    <Compile Include="Factories\Impl\FindBookStrategyFactory.cs" />
     <Compile Include="Factories\Impl\FindStrategyFactory.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
@@ -65,8 +66,18 @@
     <Compile Include="Services\AuthorService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\ReaderService.cs" />
+    <Compile Include="Strategies\Abstract\FindAuthorStrategy.cs" />
+    <Compile Include="Strategies\Abstract\FindBookStrategy.cs" />
+    <Compile Include="Strategies\Abstract\FindReaderStrategy.cs" />
     <Compile Include="Strategies\IFindStrategy.cs" />
-    <Compile Include="Strategies\Impl\FindStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindAuthorByName.cs" />
+    <Compile Include="Strategies\Impl\FindBookByAuthorStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindBookByTitleStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindReaderByNameStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindReaderByTicketStrategy.cs" />
+    <Compile Include="Strategies\TypesEnum\FindAuthorType.cs" />
+    <Compile Include="Strategies\TypesEnum\FindReaderType.cs" />
+    <Compile Include="Strategies\TypesEnum\FindBookType.cs" />
     <Compile Include="Strategies\TypesEnum\FindType.cs" />
   </ItemGroup>
   <ItemGroup>
