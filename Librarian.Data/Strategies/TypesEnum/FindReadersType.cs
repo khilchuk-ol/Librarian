@@ -1,7 +1,8 @@
 ﻿namespace Librarian.Data.Strategies.TypesEnum
 {
-    public enum FindAuthorType
+    public enum FindReadersType
     {
-        ByName
+        ByName,
+        ByTicket
     }
 }

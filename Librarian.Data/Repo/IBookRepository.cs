@@ -1,5 +1,4 @@
 ﻿using Librarian.Data.Models;
-using Librarian.Data.Strategies;
 using System.Collections.Generic;
 
 namespace Librarian.Data.Repo
@@ -7,7 +6,5 @@ namespace Librarian.Data.Repo
     public interface IBookRepository
     {
         IEnumerable<Book> FindAll();
-
-        IEnumerable<Book> Find<TCriterion>(IFindStrategy<Book, TCriterion> strategy, TCriterion criterion);
     }
 }

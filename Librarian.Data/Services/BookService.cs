@@ -4,17 +4,18 @@ using Librarian.Data.Models;
 using Librarian.Data.Repo;
 using Librarian.Data.Strategies.TypesEnum;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Librarian.Data.Services
 {
     public class BookService
     {
         public IBookRepository Repository { get; }
+        public FindBooksStrategyFactory Factory { get; }
 
-        public BookService([NotNull]IBookRepository repo)
+        public BookService([NotNull]IBookRepository repo, [NotNull]FindBooksStrategyFactory fact)
         {
             Repository = repo;
+            Factory = fact;
         }
 
         public IEnumerable<Book> FindBooksByTitle(string title)
@@ -24,9 +25,9 @@ namespace Librarian.Data.Services
                 return null;
             }
 
-            var str = FindStrategyFactory<Book, string>.Instance.Create<Book, string>(FindType.BookByTitle);
+            var strategy = Factory.Create(FindBooksType.ByTitle);
 
-            return Repository.Find(str, title).ToHashSet();
+            return strategy.Find(Repository.FindAll(), title);
         }
 
         public IEnumerable<Book> FindBooksByAuthor(Author a)
@@ -36,9 +37,9 @@ namespace Librarian.Data.Services
                 return null;
             }
 
-            var str = FindStrategyFactory<Book, int>.Instance.Create<Book, int>(FindType.BookByAuthor);
+            var strategy = Factory.Create(FindBooksType.ByAuthor);
 
-            return Repository.Find(str, a.Id).ToHashSet();
+            return strategy.Find(Repository.FindAll(), a.Id);
         }
     }
 }

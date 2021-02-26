@@ -1,7 +1,6 @@
 ﻿using Librarian.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Librarian.Data
 {
@@ -75,14 +74,14 @@ namespace Librarian.Data
                 ReaderId = js.Id
             };
 
-            tkam.Genres.Append(cl);
-            tkam.Authors.Append(hl);
-            tgb.Genres.Append(ft);
-            tgb.Authors.Append(ng);
-            ag.Genres.Append(ft);
-            ag.Authors.Append(ng);
-            js.Records.Append(rc1);
-            js.Records.Append(rc2);
+            tkam.Genres.Add(cl);
+            tkam.Authors.Add(hl);
+            tgb.Genres.Add(ft);
+            tgb.Authors.Add(ng);
+            ag.Genres.Add(ft);
+            ag.Authors.Add(ng);
+            js.Records.Add(rc1);
+            js.Records.Add(rc2);
 
             DBBooks = new HashSet<Book>
             {

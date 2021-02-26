@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Librarian.Data.Strategies
 {
-    public interface IFindStrategy<TElement, TCriterion>
+    public interface IFindStrategy<TElement>
     { 
-        IQueryable<TElement> Find(IQueryable<TElement> elements, TCriterion criterion);
+        IEnumerable<TElement> Find(IEnumerable<TElement> elements, object criterion);
     }
 }

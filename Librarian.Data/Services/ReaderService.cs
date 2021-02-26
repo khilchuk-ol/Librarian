@@ -4,17 +4,18 @@ using Librarian.Data.Models;
 using Librarian.Data.Repo;
 using Librarian.Data.Strategies.TypesEnum;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Librarian.Data.Services
 {
     public class ReaderService
     {
         public IReaderRepository Repository { get; }
+        public FindReadersStrategyFactory Factory { get; }
 
-        public ReaderService([NotNull]IReaderRepository repo)
+        public ReaderService([NotNull]IReaderRepository repo, [NotNull]FindReadersStrategyFactory factory)
         {
             Repository = repo;
+            Factory = factory;
         }
 
         public IEnumerable<Reader> FindReadersByName(string query)
@@ -24,16 +25,21 @@ namespace Librarian.Data.Services
                 return null;
             }
 
-            var str = FindStrategyFactory<Reader, string>.Instance.Create<Reader, string>(FindType.ReaderByName);
+            var strategy = Factory.Create(FindReadersType.ByName);
 
-            return Repository.Find(str, query).ToHashSet();
+            return strategy.Find(Repository.FindAll(), query);
         }
 
-        public Reader FindReaderByTicket(int number) 
+        public IEnumerable<Reader> FindReaderByTicket(int number) 
         {
-            var str = FindStrategyFactory<Reader, int>.Instance.Create<Reader, int>(FindType.ReaderByTicket);
+            if(number < 0)
+            {
+                return null;
+            }
 
-            return Repository.Find(str, number).FirstOrDefault();
+            var strategy = Factory.Create(FindReadersType.ByTicket);
+
+            return strategy.Find(Repository.FindAll(), number);
         }
     }
 }

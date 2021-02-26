@@ -4,16 +4,17 @@ using Librarian.Data.Services;
 using System;
 using System.Linq;
 using System.Threading;
+using Librarian.Data.Factories.Impl;
 
 namespace Librarian.Data
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var bsc = new BookService(new BookRepository());
-            var rsc = new ReaderService(new ReaderRepository());
-            var asc = new AuthorService(new AuthorRepository());
+            var bsc = new BookService(new BookRepository(), new FindBooksStrategyFactory());
+            var rsc = new ReaderService(new ReaderRepository(), new FindReadersStrategyFactory());
+            var asc = new AuthorService(new AuthorRepository(), new FindAuthorsStrategyFactory());
 
             Menu(rsc, asc, bsc);
 
@@ -112,16 +113,22 @@ namespace Librarian.Data
             Console.Write("Input ticket number: ");
             var ticketIn = Console.ReadLine();
 
-            if (Int32.TryParse(ticketIn, out int num))
+            if (int.TryParse(ticketIn, out int num))
             {
-                var res = rs.FindReaderByTicket(num);
+                var readers = rs.FindReaderByTicket(num);
 
-                if(res == null)
+                if(readers == null || readers.Count() == 0)
                 {
                     Console.WriteLine("nothing was found");
                 }
+                else if (readers.Count() > 1)
+                {
+                    Console.WriteLine("It seems that there is more than one reader with such ticket number");
+                }
                 else
                 {
+                    var res = readers.FirstOrDefault();
+
                     Console.WriteLine("\nResult\n");
                     Console.WriteLine($"{"Full name",-25} | {"Ticket number",-12} | {"Phone number",-20}");
                     Console.WriteLine($"{res.Fullname,-25} | {res.TicketNumber,-12} | {res.Phone,-20}");

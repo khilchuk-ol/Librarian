@@ -20,13 +20,13 @@ namespace Librarian.Data.Models
         public string Passport { get; set; }
         public string Phone { get; set; }
 
-        public IEnumerable<Record> Records { get; private set; } = new HashSet<Record>();
+        public List<Record> Records { get; private set; } = new List<Record>();
 
-        public IEnumerable<Book> ReturnedBooks =>
-            Records.Where(r => r.ReturnDate != null).Select(r => r.Book).ToHashSet();
+        public List<Book> ReturnedBooks =>
+            Records.Where(r => r.ReturnDate != null).Select(r => r.Book).ToList();
 
-        public IEnumerable<Book> CurrentlyBorrowedBooks =>
-            Records.Where(r => r.ReturnDate == null).Select(r => r.Book).ToHashSet();
+        public List<Book> CurrentlyBorrowedBooks =>
+            Records.Where(r => r.ReturnDate == null).Select(r => r.Book).ToList();
 
         public Reader(int ticket)
         {
