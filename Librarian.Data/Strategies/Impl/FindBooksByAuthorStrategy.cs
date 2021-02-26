@@ -9,16 +9,16 @@ namespace Librarian.Data.Strategies.Impl
 {
     public class FindBooksByAuthorStrategy : FindBooksStrategy
     {
-        public override IEnumerable<Book> Find(IEnumerable<Book> elements, object authorId)
+        public override IEnumerable<Book> Find(IEnumerable<Book> elements, object author)
         {
             try
             {
-                var criterion = (int)authorId;
-                return elements.Where(b => b.Authors.Select(a => a.Id).Contains(criterion)).ToList();
+                var criterion = (Author)author;
+                return elements.Where(b => b.Authors.Select(a => a.Id).Contains(criterion.Id)).ToList();
             }
             catch (InvalidCastException)
             {
-                throw new InvalidStrategyArgumentTypeException<Book>(authorId.GetType(), this);
+                throw new InvalidStrategyArgumentTypeException<Book>(author.GetType(), this);
             }
         }
     }

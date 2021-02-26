@@ -39,7 +39,7 @@ namespace Librarian.Data.Services
 
             var strategy = Factory.Create(FindBooksType.ByAuthor);
 
-            return strategy.Find(Repository.FindAll(), a.Id);
+            return strategy.Find(Repository.FindAll(), a);
         }
     }
 }
