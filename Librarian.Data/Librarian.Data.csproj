@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseImitation.cs" />
-    <Compile Include="Factories\IFindStrategyFactory.cs" />
-    <Compile Include="Factories\Impl\FindBookStrategyFactory.cs" />
-    <Compile Include="Factories\Impl\FindStrategyFactory.cs" />
+    <Compile Include="Exceptions\InvalidStrategyArgumentTypeException.cs" />
+    <Compile Include="Factories\FindStrategyFactory.cs" />
+    <Compile Include="Factories\Impl\FindAuthorsStrategyFactory.cs" />
+    <Compile Include="Factories\Impl\FindBooksStrategyFactory.cs" />
+    <Compile Include="Factories\Impl\FindReadersStrategyFactory.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -66,18 +68,18 @@
     <Compile Include="Services\AuthorService.cs" />
     <Compile Include="Services\BookService.cs" />
     <Compile Include="Services\ReaderService.cs" />
-    <Compile Include="Strategies\Abstract\FindAuthorStrategy.cs" />
-    <Compile Include="Strategies\Abstract\FindBookStrategy.cs" />
-    <Compile Include="Strategies\Abstract\FindReaderStrategy.cs" />
+    <Compile Include="Strategies\Abstract\FindAuthorsStrategy.cs" />
+    <Compile Include="Strategies\Abstract\FindBooksStrategy.cs" />
+    <Compile Include="Strategies\Abstract\FindReadersStrategy.cs" />
     <Compile Include="Strategies\IFindStrategy.cs" />
-    <Compile Include="Strategies\Impl\FindAuthorByName.cs" />
-    <Compile Include="Strategies\Impl\FindBookByAuthorStrategy.cs" />
-    <Compile Include="Strategies\Impl\FindBookByTitleStrategy.cs" />
-    <Compile Include="Strategies\Impl\FindReaderByNameStrategy.cs" />
-    <Compile Include="Strategies\Impl\FindReaderByTicketStrategy.cs" />
-    <Compile Include="Strategies\TypesEnum\FindAuthorType.cs" />
-    <Compile Include="Strategies\TypesEnum\FindReaderType.cs" />
-    <Compile Include="Strategies\TypesEnum\FindBookType.cs" />
+    <Compile Include="Strategies\Impl\FindAuthorsByNameStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindBooksByAuthorStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindBooksByTitleStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindReadersByNameStrategy.cs" />
+    <Compile Include="Strategies\Impl\FindReadersByTicketStrategy.cs" />
+    <Compile Include="Strategies\TypesEnum\FindAuthorsType.cs" />
+    <Compile Include="Strategies\TypesEnum\FindReadersType.cs" />
+    <Compile Include="Strategies\TypesEnum\FindBooksType.cs" />
     <Compile Include="Strategies\TypesEnum\FindType.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,16 +9,13 @@ namespace Librarian.Data.Models
         public int Id { get; } = identity++;
 
         public int Number { get; set; }
-
         public string Title { get; set; }
-
         public int PageCount { get; set; }
-
         public DateTime ReleaseDate { get; set; }
 
         public bool IsBorrowed { get; set; }
 
-        public IEnumerable<Author> Authors { get; private set; } = new HashSet<Author>();
-        public IEnumerable<Genre> Genres { get; private set; } = new HashSet<Genre>();
+        public List<Author> Authors { get; private set; } = new List<Author>();
+        public List<Genre> Genres { get; private set; } = new List<Genre>();
     }
 }

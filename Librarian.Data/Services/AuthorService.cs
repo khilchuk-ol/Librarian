@@ -4,17 +4,18 @@ using Librarian.Data.Models;
 using Librarian.Data.Repo;
 using Librarian.Data.Strategies.TypesEnum;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Librarian.Data.Services
 {
     public class AuthorService
     {
         public IAuthorRepository Repository { get; }
+        public FindAuthorsStrategyFactory Factory { get; }
 
-        public AuthorService([NotNull]IAuthorRepository repo)
+        public AuthorService([NotNull]IAuthorRepository repo, [NotNull]FindAuthorsStrategyFactory fact)
         {
             Repository = repo;
+            Factory = fact;
         }
 
         public IEnumerable<Author> FindAuthorsByName(string query = null)
@@ -24,9 +25,9 @@ namespace Librarian.Data.Services
                 return null;
             }
 
-            var str = FindStrategyFactory<Author, string>.Instance.Create<Author, string>(FindType.AuthorByName);
+            var strategy = Factory.Create(FindAuthorsType.ByName);
 
-            return Repository.Find(str, query).ToHashSet(); 
+            return strategy.Find(Repository.FindAll(), query);
         }
 
     }

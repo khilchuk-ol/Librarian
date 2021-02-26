@@ -1,6 +1,6 @@
 ﻿namespace Librarian.Data.Strategies.TypesEnum
 {
-    public enum FindBookType
+    public enum FindBooksType
     {
         ByTitle,
         ByAuthor
