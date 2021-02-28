@@ -4,8 +4,8 @@ using System.Data.Entity;
 
 namespace Librarian.Data.Repo.Impl
 {
-    public class BookRepository : Repository<Book, int>, IBookRepository<int>
+    public class GenreRepository : Repository<Genre, int>, IGenreRepository<int>
     {
-        public BookRepository(DbContext context) : base(context) { }
+        public GenreRepository(DbContext context) : base(context) { } 
     }
 }

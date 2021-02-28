@@ -1,13 +1,11 @@
-﻿using Librarian.Data.Models;
-using System.Collections.Generic;
+﻿using Librarian.Data.Repo.Abstract;
+using Librarian.Domain.Models.Core;
+using System.Data.Entity;
 
 namespace Librarian.Data.Repo.Impl
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : Repository<Author, int>, IAuthorRepository<int>
     {
-        public IEnumerable<Author> FindAll()
-        {
-            return DataBaseImitation.DBAuthors;
-        }
+        public AuthorRepository(DbContext context) : base(context) { }
     }
 }
