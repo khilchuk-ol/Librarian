@@ -23,7 +23,7 @@ namespace Librarian.Domain.Services.Impl
         {
             var strategy = Factory.Create(FindReadersType.ByName);
 
-            return strategy.Find(Repository.FindAll(), query);
+            return strategy.Find(query);
         }
 
         public IEnumerable<Reader> FindReaderByTicket(int number) 
@@ -35,7 +35,7 @@ namespace Librarian.Domain.Services.Impl
 
             var strategy = Factory.Create(FindReadersType.ByTicket);
 
-            return strategy.Find(Repository.FindAll(), number);
+            return strategy.Find(number);
         }
     }
 }

@@ -13,13 +13,11 @@ namespace Librarian.Domain.Models.Core
         [Required]
         public string Title { get; set; }
         public int PageCount { get; set; }
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         public bool IsBorrowed { get; set; }
 
-        [InverseProperty("AuthorId")]
         public List<Author> Authors { get; set; } = new List<Author>();
-        [InverseProperty("GenreId")]
         public List<Genre> Genres { get; set; } = new List<Genre>();
     }
 }

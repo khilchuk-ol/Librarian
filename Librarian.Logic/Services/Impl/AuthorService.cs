@@ -23,7 +23,7 @@ namespace Librarian.Domain.Services.Impl
         {
             var strategy = Factory.Create(FindAuthorsType.ByName);
 
-            return strategy.Find(Repository.FindAll(), query);
+            return strategy.Find(query);
         }
 
     }

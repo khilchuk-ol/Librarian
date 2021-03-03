@@ -11,7 +11,6 @@ namespace Librarian.Domain.Models.Core
         [Required]
         public string Name { get; set; }
 
-        [InverseProperty("BookGId")]
         public List<Book> Books { get; set; } = new List<Book>();
 
         public Genre(string name) => Name = name;

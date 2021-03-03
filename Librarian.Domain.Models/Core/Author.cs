@@ -16,7 +16,6 @@ namespace Librarian.Domain.Models.Core
 
         [NotMapped]
         public string Fullname => string.Join(" ", new[] { Name, Surname, Parentname});
-        [InverseProperty("BookAId")]
         public List<Book> Books { get; set; } = new List<Book>();
     }
 }

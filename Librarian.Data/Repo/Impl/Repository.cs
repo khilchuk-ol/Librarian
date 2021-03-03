@@ -24,7 +24,7 @@ namespace Librarian.Data.Repo.Impl
             return _context.Set<TEntity>().Find(id);
         }
 
-        public IEnumerable<TEntity> FindAll()
+        public virtual IEnumerable<TEntity> FindAll()
         {
             return _context.Set<TEntity>().ToList();
         }

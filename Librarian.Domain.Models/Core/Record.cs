@@ -7,7 +7,9 @@ namespace Librarian.Domain.Models.Core
     {
         public int Id { get; set; } 
 
-        public DateTime BorrowDate { get; set; } = DateTime.Now;
+        //[Column(TypeName = "datetime2")]
+        public DateTime BorrowDate { get; set; }
+        //[Column(TypeName = "datetime2")]
         public DateTime? ReturnDate { get; set; }
 
         [ForeignKey("BookId")]

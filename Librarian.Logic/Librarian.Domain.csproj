@@ -9,13 +9,28 @@
     <ProjectGuid>{BE1ACA09-2394-46D9-8590-1E8759275E91}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Librarian.Logic</RootNamespace>
-    <AssemblyName>Librarian.Logic</AssemblyName>
+    <RootNamespace>Librarian.Domain</RootNamespace>
+    <AssemblyName>Librarian.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -201,6 +216,8 @@
     <Compile Include="Factories\Impl\FindAuthorsStrategyFactory.cs" />
     <Compile Include="Factories\Impl\FindBooksStrategyFactory.cs" />
     <Compile Include="Factories\Impl\FindReadersStrategyFactory.cs" />
+    <Compile Include="Present\Impl\ConsolePresentable.cs" />
+    <Compile Include="Present\IPresentable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Abstract\IAuthorService.cs" />
@@ -209,7 +226,6 @@
     <Compile Include="Services\Impl\AuthorService.cs" />
     <Compile Include="Services\Impl\BookService.cs" />
     <Compile Include="Services\Impl\ReaderService.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="Strategies\Abstract\FindAuthorsStrategy.cs" />
     <Compile Include="Strategies\Abstract\FindBooksStrategy.cs" />
     <Compile Include="Strategies\Abstract\FindReadersStrategy.cs" />
@@ -237,7 +253,18 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

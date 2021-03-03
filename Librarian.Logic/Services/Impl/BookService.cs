@@ -23,14 +23,14 @@ namespace Librarian.Domain.Services.Impl
         {
             var strategy = Factory.Create(FindBooksType.ByTitle);
 
-            return strategy.Find(Repository.FindAll(), title);
+            return strategy.Find(title);
         }
 
         public IEnumerable<Book> FindBooksByAuthor([NotNull]Author a)
         {
             var strategy = Factory.Create(FindBooksType.ByAuthor);
 
-            return strategy.Find(Repository.FindAll(), a);
+            return strategy.Find(a);
         }
     }
 }

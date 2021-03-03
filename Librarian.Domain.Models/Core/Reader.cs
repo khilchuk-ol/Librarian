@@ -10,7 +10,7 @@ namespace Librarian.Domain.Models.Core
     {
         public int Id { get; set; }
 
-        public int TicketNumber { get; }
+        public int TicketNumber { get; set; }
         
         [Required]
         public string Name { get; set; }
@@ -25,7 +25,6 @@ namespace Librarian.Domain.Models.Core
         [Required]
         public string Phone { get; set; }
 
-        [InverseProperty("ReaderId")]
         public List<Record> Records { get; set; } = new List<Record>();
 
         [NotMapped]

@@ -66,7 +66,8 @@ namespace Librarian.Data.Data
                 Book = tkam,
                 BookId = tkam.Id,
                 Reader = js,
-                ReaderId = js.Id
+                ReaderId = js.Id,
+                BorrowDate = new DateTime(2020, 12, 13)
             };
 
             tkam.Genres.Add(cl);
