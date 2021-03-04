@@ -14,5 +14,12 @@ namespace Librarian.Data.Repo.Impl
         {
             return _context.Set<Reader>().Include(r => r.Records.Select(rc => rc.Book)).ToList();
         }
+
+        public override Reader Find(int id)
+        {
+            return _context.Set<Reader>().Where(r => r.Id == id)
+                                         .Include(r => r.Records.Select(rc => rc.Book))
+                                         .FirstOrDefault();
+        }
     }
 }

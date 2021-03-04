@@ -14,5 +14,12 @@ namespace Librarian.Data.Repo.Impl
         {
             return _context.Set<Genre>().Include(g => g.Books).ToList();
         }
+
+        public override Genre Find(int id)
+        {
+            return _context.Set<Genre>().Where(g => g.Id == id)
+                                        .Include(g => g.Books)
+                                        .FirstOrDefault();
+        }
     }
 }

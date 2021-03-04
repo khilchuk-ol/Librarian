@@ -40,7 +40,7 @@ namespace Librarian.Data
                    services.AddScoped<IAuthorRepository<int>, AuthorRepository>();
                    services.AddScoped<IGenreRepository<int>, GenreRepository>();
                    services.AddScoped<IRecordRepository<int>, RecordRepository>();
-                   services.AddScoped<IUnitOfWork<int>, UnitOfWork>();
+                   services.AddScoped<IUnitOfWork<int>, UnitOfWork<int>>();
                    services.AddScoped<FindStrategyFactory<Book, FindBooksType>, FindBooksStrategyFactory>();
                    services.AddScoped<FindStrategyFactory<Reader, FindReadersType>, FindReadersStrategyFactory>();
                    services.AddScoped<FindStrategyFactory<Author, FindAuthorsType>, FindAuthorsStrategyFactory>();

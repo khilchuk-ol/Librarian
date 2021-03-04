@@ -12,7 +12,17 @@ namespace Librarian.Data.Repo.Impl
 
         public override IEnumerable<Book> FindAll()
         {
-            return _context.Set<Book>().Include(b => b.Genres).Include(b => b.Authors).ToList();
+            return _context.Set<Book>().Include(b => b.Genres)
+                                       .Include(b => b.Authors)
+                                       .ToList();
+        }
+        
+        public override Book Find(int id)
+        {
+            return _context.Set<Book>().Where(b => b.Id == id)
+                                       .Include(b => b.Authors)
+                                       .Include(b => b.Genres)
+                                       .FirstOrDefault();
         }
     }
 }
