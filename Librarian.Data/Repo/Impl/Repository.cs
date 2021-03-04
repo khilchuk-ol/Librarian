@@ -19,7 +19,7 @@ namespace Librarian.Data.Repo.Impl
             _context.Set<TEntity>().Add(item);
         }
 
-        public TEntity Find(TIdentity id)
+        public virtual TEntity Find(TIdentity id)
         {
             return _context.Set<TEntity>().Find(id);
         }

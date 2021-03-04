@@ -6,13 +6,20 @@ using System.Linq;
 
 namespace Librarian.Data.Repo.Impl
 {
-    public class AuthorRepository : Repository<Author, int>, IAuthorRepository<int>
+    public class AuthorRepository<TIdentity> : Repository<Author, TIdentity>, IAuthorRepository<TIdentity>
     {
         public AuthorRepository(DbContext context) : base(context) { }
 
         public override IEnumerable<Author> FindAll()
         {
             return _context.Set<Author>().Include(a => a.Books).ToList();
+        }
+
+        public override Author Find(TIdentity id)
+        {
+            return _context.Set<Author>().Where(a => a.Id == id)
+                                         .Include(a => a.Books)
+                                         .FirstOrDefault();
         }
     }
 }

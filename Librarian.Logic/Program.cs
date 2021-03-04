@@ -35,12 +35,12 @@ namespace Librarian.Data
                .ConfigureServices((_, services) =>
                {
                    services.AddSingleton<DbContext, LibrarianContext>();
-                   services.AddScoped<IBookRepository<int>, BookRepository>();
-                   services.AddScoped<IReaderRepository<int>, ReaderRepository>();
-                   services.AddScoped<IAuthorRepository<int>, AuthorRepository>();
-                   services.AddScoped<IGenreRepository<int>, GenreRepository>();
-                   services.AddScoped<IRecordRepository<int>, RecordRepository>();
-                   services.AddScoped<IUnitOfWork<int>, UnitOfWork>();
+                   services.AddScoped<IBookRepository<int>, BookRepository<int>>();
+                   services.AddScoped<IReaderRepository<int>, ReaderRepository<int>>();
+                   services.AddScoped<IAuthorRepository<int>, AuthorRepository<int>>();
+                   services.AddScoped<IGenreRepository<int>, GenreRepository<int>>();
+                   services.AddScoped<IRecordRepository<int>, RecordRepository<int>>();
+                   services.AddScoped<IUnitOfWork<int>, UnitOfWork<int>>();
                    services.AddScoped<FindStrategyFactory<Book, FindBooksType>, FindBooksStrategyFactory>();
                    services.AddScoped<FindStrategyFactory<Reader, FindReadersType>, FindReadersStrategyFactory>();
                    services.AddScoped<FindStrategyFactory<Author, FindAuthorsType>, FindAuthorsStrategyFactory>();
