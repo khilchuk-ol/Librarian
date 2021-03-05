@@ -2,7 +2,7 @@
 
 namespace Librarian.Data.Repo.Abstract
 {
-    public interface IGenreRepository<TIdentity> : IRepository<Genre,TIdentity>
+    public interface IGenreRepository : IRepository<Genre, int>
     {
     }
 }

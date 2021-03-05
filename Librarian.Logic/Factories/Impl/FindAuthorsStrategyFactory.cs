@@ -10,9 +10,9 @@ namespace Librarian.Domain.Factories.Impl
 {
     public class FindAuthorsStrategyFactory : FindStrategyFactory<Author, FindAuthorsType>
     {
-        protected IAuthorRepository<int> _repo;
+        protected IAuthorRepository _repo;
 
-        public FindAuthorsStrategyFactory(IAuthorRepository<int> repo) => _repo = repo;
+        public FindAuthorsStrategyFactory(IAuthorRepository repo) => _repo = repo;
 
         public override IFindStrategy<Author> Create(FindAuthorsType type)
         {

@@ -10,10 +10,10 @@ namespace Librarian.Domain.Services.Impl
 {
     public class BookService : IBookService
     {
-        public IBookRepository<int> Repository { get; }
+        public IBookRepository Repository { get; }
         public FindStrategyFactory<Book, FindBooksType> Factory { get; }
 
-        public BookService([NotNull]IBookRepository<int> repo, [NotNull]FindStrategyFactory<Book, FindBooksType> fact)
+        public BookService([NotNull]IBookRepository repo, [NotNull]FindStrategyFactory<Book, FindBooksType> fact)
         {
             Repository = repo;
             Factory = fact;

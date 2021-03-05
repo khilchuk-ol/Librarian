@@ -10,9 +10,9 @@ namespace Librarian.Domain.Strategies.Impl
 {
     public class FindAuthorsByNameStrategy : FindAuthorsStrategy
     {
-        protected IAuthorRepository<int> _repository;
+        protected IAuthorRepository _repository;
 
-        public FindAuthorsByNameStrategy(IAuthorRepository<int> repository) => _repository = repository;
+        public FindAuthorsByNameStrategy(IAuthorRepository repository) => _repository = repository;
 
         public override IEnumerable<Author> Find(object name)
         {

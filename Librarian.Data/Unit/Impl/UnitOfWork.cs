@@ -5,24 +5,24 @@ using System.Data.Entity;
 
 namespace Librarian.Data.Unit.Impl
 {
-    public class UnitOfWork<TIdentity> : IUnitOfWork<TIdentity>
+    public class UnitOfWork : IUnitOfWork
     {
         protected DbContext _context;
 
-        public IBookRepository<TIdentity> BookRepository { get; }
+        public IBookRepository BookRepository { get; }
 
-        public IReaderRepository<TIdentity> ReaderRepository { get; }
+        public IReaderRepository ReaderRepository { get; }
 
-        public IAuthorRepository<TIdentity> AuthorRepository { get; } 
+        public IAuthorRepository AuthorRepository { get; } 
 
-        public IRecordRepository<TIdentity> RecordRepository { get; }
+        public IRecordRepository RecordRepository { get; }
 
-        public IGenreRepository<TIdentity> GenreRepository { get; }
+        public IGenreRepository GenreRepository { get; }
 
         private bool _isDisposed = false;
 
-        public UnitOfWork(DbContext context, IBookRepository<TIdentity> bookRepo, IReaderRepository<TIdentity> readerRepo, 
-                 IAuthorRepository<TIdentity> authorRepo, IRecordRepository<TIdentity> recordRepo, IGenreRepository<TIdentity> genreRepo)
+        public UnitOfWork(DbContext context, IBookRepository bookRepo, IReaderRepository readerRepo, 
+                 IAuthorRepository authorRepo, IRecordRepository recordRepo, IGenreRepository genreRepo)
         {
             _context = context;
 

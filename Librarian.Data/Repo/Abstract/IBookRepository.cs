@@ -2,7 +2,7 @@
 
 namespace Librarian.Data.Repo.Abstract
 {
-    public interface IBookRepository<TIdentity> : IRepository<Book, TIdentity>
+    public interface IBookRepository : IRepository<Book, int>
     {
     }
 }

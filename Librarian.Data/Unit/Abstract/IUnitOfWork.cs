@@ -3,13 +3,13 @@ using System;
 
 namespace Librarian.Data.Unit.Abstract
 {
-    public interface IUnitOfWork<TIdentity> : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-        IBookRepository<TIdentity> BookRepository { get; }
-        IReaderRepository<TIdentity> ReaderRepository { get; }
-        IAuthorRepository<TIdentity> AuthorRepository { get; }
-        IRecordRepository<TIdentity> RecordRepository { get; }
-        IGenreRepository<TIdentity> GenreRepository { get; }
+        IBookRepository BookRepository { get; }
+        IReaderRepository ReaderRepository { get; }
+        IAuthorRepository AuthorRepository { get; }
+        IRecordRepository RecordRepository { get; }
+        IGenreRepository GenreRepository { get; }
 
         void Save();
     }

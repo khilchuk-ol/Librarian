@@ -10,9 +10,9 @@ namespace Librarian.Domain.Strategies.Impl
 {
     public class FindBooksByAuthorStrategy : FindBooksStrategy
     {
-        protected IBookRepository<int> _repository;
+        protected IBookRepository _repository;
 
-        public FindBooksByAuthorStrategy(IBookRepository<int> repository) => _repository = repository;
+        public FindBooksByAuthorStrategy(IBookRepository repository) => _repository = repository;
 
         public override IEnumerable<Book> Find(object author)
         {

@@ -10,9 +10,9 @@ namespace Librarian.Domain.Factories.Impl
 {
     public class FindReadersStrategyFactory : FindStrategyFactory<Reader, FindReadersType>
     {
-        protected IReaderRepository<int> _repo;
+        protected IReaderRepository _repo;
 
-        public FindReadersStrategyFactory(IReaderRepository<int> repo) => _repo = repo;
+        public FindReadersStrategyFactory(IReaderRepository repo) => _repo = repo;
 
         public override IFindStrategy<Reader> Create(FindReadersType type)
         {

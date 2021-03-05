@@ -2,7 +2,7 @@
 
 namespace Librarian.Data.Repo.Abstract
 {
-    public interface IRecordRepository<TIdentity> : IRepository<Record, TIdentity>
+    public interface IRecordRepository : IRepository<Record, int>
     {
     }
 }

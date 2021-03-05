@@ -10,9 +10,9 @@ namespace Librarian.Domain.Strategies.Impl
 {
     public class FindReadersByTicketStrategy : FindReadersStrategy
     {
-        protected IReaderRepository<int> _repository;
+        protected IReaderRepository _repository;
 
-        public FindReadersByTicketStrategy(IReaderRepository<int> repository) => _repository = repository;
+        public FindReadersByTicketStrategy(IReaderRepository repository) => _repository = repository;
 
         public override IEnumerable<Reader> Find(object ticketNumber)
         {
