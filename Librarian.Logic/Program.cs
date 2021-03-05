@@ -34,7 +34,7 @@ namespace Librarian.Data
            Host.CreateDefaultBuilder(args)
                .ConfigureServices((_, services) =>
                {
-                   services.AddSingleton<DbContext, LibrarianContext>();
+                   services.AddScoped<DbContext, LibrarianContext>();
                    services.AddScoped<IBookRepository, BookRepository>();
                    services.AddScoped<IReaderRepository, ReaderRepository>();
                    services.AddScoped<IAuthorRepository, AuthorRepository>();
