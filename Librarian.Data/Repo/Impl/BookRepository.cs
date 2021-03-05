@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Librarian.Data.Repo.Impl
 {
-    public class BookRepository<TIdentity> : Repository<Book, TIdentity>, IBookRepository<TIdentity>
+    public class BookRepository : Repository<Book, int>, IBookRepository<int>
     {
         public BookRepository(DbContext context) : base(context) { }
 

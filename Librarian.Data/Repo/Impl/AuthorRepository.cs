@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Librarian.Data.Repo.Impl
 {
-    public class AuthorRepository<TIdentity> : Repository<Author, TIdentity>, IAuthorRepository<TIdentity>
+    public class AuthorRepository : Repository<Author, int>, IAuthorRepository<int>
     {
         public AuthorRepository(DbContext context) : base(context) { }
 
