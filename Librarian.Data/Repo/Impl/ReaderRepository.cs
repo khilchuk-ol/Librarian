@@ -21,5 +21,19 @@ namespace Librarian.Data.Repo.Impl
                                          .Include(r => r.Records.Select(rc => rc.Book))
                                          .FirstOrDefault();
         }
+
+        public IEnumerable<Reader> FindReadersByName(string name)
+        {
+            return _context.Set<Reader>().Where(r => r.Fullname.Contains(name))
+                                         .Include(r => r.Records.Select(rc => rc.Book))
+                                         .ToList();
+        }
+
+        public IEnumerable<Reader> FindReadersByTicket(int ticketNumber)
+        {
+            return _context.Set<Reader>().Where(r => r.TicketNumber == ticketNumber)
+                                         .Include(r => r.Records.Select(rc => rc.Book))
+                                         .ToList();
+        }
     }
 }

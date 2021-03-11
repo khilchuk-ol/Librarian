@@ -4,7 +4,6 @@ using Librarian.Domain.Models.Core;
 using Librarian.Domain.Strategies.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Librarian.Domain.Strategies.Impl
 {
@@ -19,7 +18,7 @@ namespace Librarian.Domain.Strategies.Impl
             try
             {
                 var criterion = (string)title;
-                return _repository.FindAll().Where(b => b.Title.ToUpperInvariant().Contains(criterion.Trim().ToUpperInvariant())).ToList();
+                return _repository.FindBooksByTitle(criterion.Trim());
             }
             catch (InvalidCastException)
             {

@@ -21,5 +21,12 @@ namespace Librarian.Data.Repo.Impl
                                          .Include(a => a.Books)
                                          .FirstOrDefault();
         }
+
+        public IEnumerable<Author> FindAuthorsByName(string name)
+        {
+            return _context.Set<Author>().Where(a => a.Fullname.Contains(name))
+                                         .Include(a => a.Books)
+                                         .ToList();
+        }
     }
 }

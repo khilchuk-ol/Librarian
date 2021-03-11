@@ -24,5 +24,21 @@ namespace Librarian.Data.Repo.Impl
                                        .Include(b => b.Genres)
                                        .FirstOrDefault();
         }
+
+        public IEnumerable<Book> FindBooksByTitle(string title)
+        {
+            return _context.Set<Book>().Where(b => b.Title.Contains(title))
+                                       .Include(b => b.Authors)
+                                       .Include(b => b.Genres)
+                                       .ToList();
+        }
+
+        public IEnumerable<Book> FindBooksByAuthor(Author a)
+        {
+            return _context.Set<Book>().Where(b => b.Authors.Contains(a))
+                                       .Include(b => b.Authors)
+                                       .Include(b => b.Genres)
+                                       .ToList();
+        }
     }
 }
