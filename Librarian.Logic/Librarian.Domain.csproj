@@ -223,9 +223,11 @@
     <Compile Include="Services\Abstract\IAuthorService.cs" />
     <Compile Include="Services\Abstract\IBookService.cs" />
     <Compile Include="Services\Abstract\IReaderService.cs" />
+    <Compile Include="Services\Abstract\IRecordService.cs" />
     <Compile Include="Services\Impl\AuthorService.cs" />
     <Compile Include="Services\Impl\BookService.cs" />
     <Compile Include="Services\Impl\ReaderService.cs" />
+    <Compile Include="Services\Impl\RecordService.cs" />
     <Compile Include="Strategies\Abstract\FindAuthorsStrategy.cs" />
     <Compile Include="Strategies\Abstract\FindBooksStrategy.cs" />
     <Compile Include="Strategies\Abstract\FindReadersStrategy.cs" />

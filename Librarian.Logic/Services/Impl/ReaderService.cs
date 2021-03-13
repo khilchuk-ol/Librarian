@@ -37,5 +37,10 @@ namespace Librarian.Domain.Services.Impl
 
             return strategy.Find(number);
         }
+
+        public void LoadInfo(Reader r)
+        {
+            r.Records = Repository.FindWithInfo(r.Id).Records;
+        }
     }
 }

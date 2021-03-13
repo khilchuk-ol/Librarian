@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Librarian.Data.Data
 {
-    public class DataBaseInitializer : DropCreateDatabaseIfModelChanges<LibrarianContext>
+    public class DataBaseInitializer : CreateDatabaseIfNotExists<LibrarianContext>
     {
         protected override void Seed(LibrarianContext context)
         {
@@ -70,6 +70,44 @@ namespace Librarian.Data.Data
                 BorrowDate = new DateTime(2020, 12, 13)
             };
 
+            var hl_tkm = new BookAuthor()
+            {
+                Book = tkam,
+                BookId = tkam.Id,
+                Author = hl,
+                AuthorId = hl.Id
+            };
+
+            var ng_ag = new BookAuthor()
+            {
+                BookId = ag.Id,
+                AuthorId = ng.Id
+            };
+
+            var ng_tgb = new BookAuthor()
+            {
+                BookId = tgb.Id,
+                AuthorId = ng.Id
+            };
+
+            var cl_tkm = new GenreBook()
+            {
+                GenreId = cl.Id,
+                BookId = tkam.Id
+            };
+
+            var ft_ag = new GenreBook()
+            {
+                GenreId = ft.Id,
+                BookId = ag.Id
+            };
+
+            var ft_tgb = new GenreBook()
+            {
+                GenreId = ft.Id,
+                BookId = tgb.Id
+            };
+
             tkam.Genres.Add(cl);
             cl.Books.Add(tkam);
             tkam.Authors.Add(hl);
@@ -94,6 +132,8 @@ namespace Librarian.Data.Data
             context.Genres.AddRange(new[] { cl, ft });
             context.Readers.AddRange(new[] { js });
             context.Records.AddRange(new[] { rc1, rc2 });
+            context.GenreBooks.AddRange(new[] {ft_ag, ft_tgb, cl_tkm });
+            context.BookAuthors.AddRange(new[] { ng_ag, ng_tgb, hl_tkm });
 
             context.SaveChanges();
             base.Seed(context);

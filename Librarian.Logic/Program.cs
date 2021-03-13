@@ -25,8 +25,13 @@ namespace Librarian.Data
             var rsc = services.GetService<IReaderService>();
             var bsc = services.GetService<IBookService>();
             var asc = services.GetService<IAuthorService>();
+            var recsc = services.GetService<IRecordService>();
 
-            var present = new ConsolePresentable(bsc, rsc, asc);
+            //var gb = services.GetService<IAuthorRepository>().FindAllWithInfo();
+            //var res = services.GetService<IBookRepository>().FindBooksByAuthorWithInfo(new Author() { Id = 2 });
+            //var res = services.GetService<IBookRepository>().FindAllWithInfo();
+
+            var present = new ConsolePresentable(bsc, rsc, asc, recsc);
             present.Show();
         }
 
@@ -40,6 +45,8 @@ namespace Librarian.Data
                    services.AddScoped<IAuthorRepository, AuthorRepository>();
                    services.AddScoped<IGenreRepository, GenreRepository>();
                    services.AddScoped<IRecordRepository, RecordRepository>();
+                   services.AddScoped<IGenreBookRepository, GenreBookRepository>();
+                   services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
                    services.AddSingleton<IUnitOfWork, UnitOfWork>();
                    services.AddScoped<FindStrategyFactory<Book, FindBooksType>, FindBooksStrategyFactory>();
                    services.AddScoped<FindStrategyFactory<Reader, FindReadersType>, FindReadersStrategyFactory>();
@@ -47,6 +54,7 @@ namespace Librarian.Data
                    services.AddScoped<IBookService, BookService>();
                    services.AddScoped<IReaderService, ReaderService>();
                    services.AddScoped<IAuthorService, AuthorService>();
+                   services.AddScoped<IRecordService, RecordService>();
                });     
     }
 }

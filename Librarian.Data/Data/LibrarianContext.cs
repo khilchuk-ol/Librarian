@@ -10,6 +10,8 @@ namespace Librarian.Data.Data
         public DbSet<Author> Authors { get; set; }
         public DbSet<Record> Records { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<GenreBook> GenreBooks { get; set; }
+        public DbSet<BookAuthor> BookAuthors { get; set; }
 
         public LibrarianContext() : base("Librarian")
         {

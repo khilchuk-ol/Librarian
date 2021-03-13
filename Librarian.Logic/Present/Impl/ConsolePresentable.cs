@@ -11,24 +11,26 @@ namespace Librarian.Domain.Present.Impl
         private IBookService _bs;
         private IAuthorService _as;
         private IReaderService _rs;
+        private IRecordService _recsc;
 
-        public ConsolePresentable(IBookService bsc, IReaderService rsc, IAuthorService asc)
+        public ConsolePresentable(IBookService bsc, IReaderService rsc, IAuthorService asc, IRecordService recsc)
         {
             _bs = bsc;
             _as = asc;
             _rs = rsc;
+            _recsc = recsc;
         }
 
         public void Show()
         {
-            Menu(_rs, _as, _bs);
+            Menu(_rs, _as, _bs, _recsc);
 
             Console.Clear();
             Console.WriteLine("Bye");
             Thread.Sleep(500);
         }
 
-        private static void Menu(IReaderService rs, IAuthorService asc, IBookService bs)
+        private static void Menu(IReaderService rs, IAuthorService asc, IBookService bs, IRecordService recsc)
         {
             Console.Clear();
             Console.WriteLine("Choose options: \n" +
@@ -42,23 +44,23 @@ namespace Librarian.Domain.Present.Impl
                 case "b":
                 case "B":
                     FindBooks(bs, asc);
-                    Menu(rs, asc, bs);
+                    Menu(rs, asc, bs, recsc);
                     break;
                 case "r":
                 case "R":
-                    FindReaders(rs);
-                    Menu(rs, asc, bs);
+                    FindReaders(rs, recsc);
+                    Menu(rs, asc, bs, recsc);
                     break;
                 case "e":
                 case "E":
                     return;
                 default:
-                    Menu(rs, asc, bs);
+                    Menu(rs, asc, bs, recsc);
                     break;
             }
         }
 
-        private static void FindReaders(IReaderService rs)
+        private static void FindReaders(IReaderService rs, IRecordService recsc)
         {
             Console.Clear();
             Console.WriteLine("Choose value to search by:\n" +
@@ -71,7 +73,7 @@ namespace Librarian.Domain.Present.Impl
             {
                 case "t":
                 case "T":
-                    FindReadersByTicket(rs);
+                    FindReadersByTicket(rs, recsc);
                     break;
                 case "n":
                 case "N":
@@ -116,7 +118,7 @@ namespace Librarian.Domain.Present.Impl
             Console.ReadLine();
         }
 
-        private static void FindReadersByTicket(IReaderService rs)
+        private static void FindReadersByTicket(IReaderService rs, IRecordService recsc)
         {
             Console.Clear();
             Console.WriteLine("You have chosen finding readers by ticket");
@@ -154,11 +156,11 @@ namespace Librarian.Domain.Present.Impl
                     {
                         case "r":
                         case "R":
-                            GetReturnedBooks(res);
+                            GetReturnedBooks(rs, recsc, res);
                             break;
                         case "b":
                         case "B":
-                            GetBorrowedBooks(res);
+                            GetBorrowedBooks(rs, recsc, res);
                             break;
                         default:
                             return;
@@ -275,10 +277,13 @@ namespace Librarian.Domain.Present.Impl
             Console.ReadLine();
         }
 
-        private static void GetReturnedBooks(Reader r)
+        private static void GetReturnedBooks(IReaderService rsc, IRecordService recsc, Reader r)
         {
             Console.Clear();
             Console.WriteLine($"Information about returned books of {r.Fullname}");
+
+            rsc.LoadInfo(r);
+            r.Records.ForEach(rec => recsc.LoadInfo(rec));
 
             var list = r.ReturnedBooks;
 
@@ -297,10 +302,13 @@ namespace Librarian.Domain.Present.Impl
             }
         }
 
-        private static void GetBorrowedBooks(Reader r)
+        private static void GetBorrowedBooks(IReaderService rsc, IRecordService recsc, Reader r)
         {
             Console.Clear();
             Console.WriteLine($"Information about currently borrowed books of {r.Fullname}");
+
+            rsc.LoadInfo(r);
+            r.Records.ForEach(rec => recsc.LoadInfo(rec));
 
             var list = r.CurrentlyBorrowedBooks;
 

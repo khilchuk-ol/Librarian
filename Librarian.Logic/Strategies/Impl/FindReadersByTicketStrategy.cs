@@ -18,7 +18,7 @@ namespace Librarian.Domain.Strategies.Impl
             try
             {
                 var criterion = (int)ticketNumber;
-                return _repository.FindReadersByTicket(criterion);
+                return _repository.FindReadersByTicketWithInfo(criterion);
             }
             catch (InvalidCastException)
             {

@@ -32,5 +32,12 @@ namespace Librarian.Domain.Services.Impl
 
             return strategy.Find(a);
         }
+
+        public void LoadInfo(Book b)
+        {
+            var tmp = Repository.FindWithInfo(b.Id);
+            b.Genres = tmp.Genres;
+            b.Authors = tmp.Authors;
+        }
     }
 }

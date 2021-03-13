@@ -43,5 +43,8 @@ namespace Librarian.Domain.Models.Core
         }
 
         public Reader() { }
+
+        public void AddRecord(Record r) => Records.Add(r);
+        public void RemoveRecord(Record r) => Records.RemoveAll(rc => rc.Id == r.Id);
     }
 }

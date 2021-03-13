@@ -7,5 +7,6 @@ namespace Librarian.Domain.Services.Abstract
     {
         IEnumerable<Book> FindBooksByTitle(string title);
         IEnumerable<Book> FindBooksByAuthor(Author a);
+        void LoadInfo(Book b);
     }
 }

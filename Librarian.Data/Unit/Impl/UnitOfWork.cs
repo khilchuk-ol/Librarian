@@ -10,19 +10,17 @@ namespace Librarian.Data.Unit.Impl
         protected DbContext _context;
 
         public IBookRepository BookRepository { get; }
-
         public IReaderRepository ReaderRepository { get; }
-
         public IAuthorRepository AuthorRepository { get; } 
-
         public IRecordRepository RecordRepository { get; }
-
         public IGenreRepository GenreRepository { get; }
+        public IGenreBookRepository GenreBookRepository { get; }
+        public IBookAuthorRepository BookAuthorRepository { get; }
 
         private bool _isDisposed = false;
 
-        public UnitOfWork(DbContext context, IBookRepository bookRepo, IReaderRepository readerRepo, 
-                 IAuthorRepository authorRepo, IRecordRepository recordRepo, IGenreRepository genreRepo)
+        public UnitOfWork(DbContext context, IBookRepository bookRepo, IReaderRepository readerRepo, IAuthorRepository authorRepo, 
+            IRecordRepository recordRepo, IGenreRepository genreRepo, IBookAuthorRepository bookAuthorRepo, IGenreBookRepository genreBookRepo)
         {
             _context = context;
 
@@ -37,6 +35,8 @@ namespace Librarian.Data.Unit.Impl
             AuthorRepository = authorRepo;
             GenreRepository = genreRepo;
             RecordRepository = recordRepo;
+            BookAuthorRepository = bookAuthorRepo;
+            GenreBookRepository = genreBookRepo;
         }
 
         public virtual void Dispose(bool disposing)

@@ -10,6 +10,8 @@ namespace Librarian.Data.Unit.Abstract
         IAuthorRepository AuthorRepository { get; }
         IRecordRepository RecordRepository { get; }
         IGenreRepository GenreRepository { get; }
+        IGenreBookRepository GenreBookRepository { get; }
+        IBookAuthorRepository BookAuthorRepository { get; }
 
         void Save();
     }

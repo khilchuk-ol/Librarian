@@ -26,5 +26,9 @@ namespace Librarian.Domain.Services.Impl
             return strategy.Find(query);
         }
 
+        public void LoadInfo(Author a)
+        {
+            a.Books = Repository.FindWithInfo(a.Id).Books;
+        }
     }
 }

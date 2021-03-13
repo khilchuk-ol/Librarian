@@ -7,5 +7,6 @@ namespace Librarian.Domain.Services.Abstract
     {
         IEnumerable<Reader> FindReadersByName(string query);
         IEnumerable<Reader> FindReaderByTicket(int number);
+        void LoadInfo(Reader r);
     }
 }

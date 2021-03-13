@@ -16,6 +16,10 @@ namespace Librarian.Domain.Models.Core
 
         [NotMapped]
         public string Fullname => string.Join(" ", new[] { Name, Surname, Parentname});
+        [NotMapped]
         public List<Book> Books { get; set; } = new List<Book>();
+
+        public void AddBook(Book b) => Books.Add(b);
+        public void RemoveBook(Book b) => Books.RemoveAll(bk => bk.Id == b.Id);
     }
 }
