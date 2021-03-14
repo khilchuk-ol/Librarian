@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librarian.Domain", "Librari
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librarian.Domain.Models", "Librarian.Domain.Models\Librarian.Domain.Models.csproj", "{24D94993-849F-4C0E-8FAC-E4F45F12DA39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librarian.Gui", "Librarian.Gui\Librarian.Gui.csproj", "{1DAA4827-0F3B-43C6-9A1C-699C32869D30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{24D94993-849F-4C0E-8FAC-E4F45F12DA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24D94993-849F-4C0E-8FAC-E4F45F12DA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24D94993-849F-4C0E-8FAC-E4F45F12DA39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DAA4827-0F3B-43C6-9A1C-699C32869D30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DAA4827-0F3B-43C6-9A1C-699C32869D30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DAA4827-0F3B-43C6-9A1C-699C32869D30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DAA4827-0F3B-43C6-9A1C-699C32869D30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

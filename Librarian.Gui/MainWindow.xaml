@@ -1,0 +1,72 @@
+﻿<Window x:Class="Librarian.Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Librarian.Gui"
+        xmlns:vm="clr-namespace:Librarian.Gui.ViewModel"
+        mc:Ignorable="d"
+        Title="Librarian" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="Converter" />
+    </Window.Resources>
+
+    <Grid x:Name="mainWindowGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5, 1">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Offset="0.00" Color="Wheat"/>
+                    <GradientStop Offset="0.7" Color="AntiqueWhite"/>
+                    <GradientStop Offset="1.00" Color="White"/>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Height="50" Content="Home" Click="btnHome_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Orange" />
+                </Button.Background>
+            </Button>
+            <Button Height="50" Content="Books" Click="btnBooks_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Orange" />
+                </Button.Background>
+            </Button>
+            <Button Height="50" Content="Authors" Click="btnAuthors_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Orange" />
+                </Button.Background>
+            </Button>
+            <Button Height="50" Content="Genres" Click="btnGenres_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Orange" />
+                </Button.Background>
+            </Button>
+            <Button Height="50" Content="Readers" Click="btnReaders_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="Orange" />
+                </Button.Background>
+            </Button>
+            <Rectangle Fill="White" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualHeight}"></Rectangle>
+        </StackPanel>
+        <Grid x:Name="Content" Grid.Column="1">
+            <Grid x:Name="Home" Visibility="{Binding Path=ShowHome, Converter={StaticResource Converter}}">
+                <Label Grid.Column="1" HorizontalAlignment="Center" Margin="115,119,118,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,1.588" Height="48" Width="494">
+                    <Label.Content>
+                        <TextBlock Text="Librarian - your personal library manager" FontSize="28" Height="50" Width="484" FontWeight="Light"/>
+                    </Label.Content>
+                </Label>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

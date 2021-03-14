@@ -18,7 +18,7 @@ namespace Librarian.Data
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Start(string[] args)
         {
             var services = CreateHostBuilder(args).Build().Services;
 
