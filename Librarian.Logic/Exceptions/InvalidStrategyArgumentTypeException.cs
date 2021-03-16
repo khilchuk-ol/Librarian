@@ -10,7 +10,7 @@ namespace Librarian.Domain.Exceptions
 
         public override string Message => $"Trying to pass argument of type {ArgumentType.FullName} to strategy of type {Strategy.GetType().FullName}. Cast failed";
 
-        public InvalidStrategyArgumentTypeException(Type argType, IFindStrategy<T> strategy)
+        public InvalidStrategyArgumentTypeException(Type argType, IFindStrategy<T> strategy) : base()
         {
             ArgumentType = argType;
             Strategy = strategy;

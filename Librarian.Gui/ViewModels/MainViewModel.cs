@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Librarian.Gui.ViewModel
+namespace Librarian.Gui.ViewModels
 {
     public class MainViewModel
     {

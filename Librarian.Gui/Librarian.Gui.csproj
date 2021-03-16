@@ -61,8 +61,11 @@
     <Compile Include="Controls\BooksControl.xaml.cs">
       <DependentUpon>BooksControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\BooksViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Exceptions\InvalidPropertyNameException.cs" />
+    <Compile Include="Models\Abstract\BaseModel.cs" />
+    <Compile Include="Models\BookModel.cs" />
+    <Compile Include="ViewModels\BooksViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Controls\BooksControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
