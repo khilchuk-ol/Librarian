@@ -62,6 +62,7 @@
       <DependentUpon>BooksControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BooksViewModel.cs" />
+    <Compile Include="ViewModels\Enums\FindBookType.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Controls\BooksControl.xaml">
       <SubType>Designer</SubType>
