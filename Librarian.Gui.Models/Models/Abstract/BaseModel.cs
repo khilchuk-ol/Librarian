@@ -1,4 +1,4 @@
-﻿using Librarian.Gui.Exceptions;
+﻿using Librarian.Gui.Models.Exceptions;
 using System.ComponentModel;
 
 namespace Librarian.Gui.Models.Abstract

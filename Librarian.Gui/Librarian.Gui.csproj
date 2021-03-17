@@ -61,9 +61,6 @@
     <Compile Include="Controls\BooksControl.xaml.cs">
       <DependentUpon>BooksControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\InvalidPropertyNameException.cs" />
-    <Compile Include="Models\Abstract\BaseModel.cs" />
-    <Compile Include="Models\BookModel.cs" />
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Controls\BooksControl.xaml">
@@ -111,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo-icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Librarian.Gui.Models\Librarian.Gui.Models.csproj">
+      <Project>{89a31355-7799-4f7f-b614-e11cb398b44e}</Project>
+      <Name>Librarian.Gui.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

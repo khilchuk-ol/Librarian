@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Librarian.Gui.Exceptions
+namespace Librarian.Gui.Models.Exceptions
 {
     public class InvalidPropertyNameException : Exception
     {
