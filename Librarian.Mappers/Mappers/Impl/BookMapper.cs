@@ -16,8 +16,8 @@ namespace Librarian.Mappers.Impl
                 Number = from.Number,
                 PageCount = from.PageCount,
                 IsBorrowed = from.IsBorrowed,
-                GenresStr = string.Join(", ", from.Genres.Select(g => g.Name)),
-                AuthorsStr = string.Join(" ", from.Authors.Select(a => a.Fullname))
+                GenresStr = from.Genres == null ? null : string.Join(", ", from.Genres.Select(g => g.Name)),
+                AuthorsStr = from.Authors == null ? null : string.Join(" ", from.Authors.Select(a => a.Fullname))
             };
 
         public Book Map(BookModel from) =>

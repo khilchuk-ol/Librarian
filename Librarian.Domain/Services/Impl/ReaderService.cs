@@ -42,5 +42,10 @@ namespace Librarian.Domain.Services.Impl
         {
             r.Records = Repository.FindWithInfo(r.Id).Records;
         }
+
+        public Reader GetReaderWithInfo(int id)
+        {
+            return Repository.FindWithInfo(id);
+        }
     }
 }

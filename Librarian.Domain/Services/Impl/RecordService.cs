@@ -19,5 +19,10 @@ namespace Librarian.Domain.Services.Impl
             r.Book = tmp.Book;
             r.Reader = tmp.Reader;
         }
+
+        public Record GetRecordWithInfo(int id)
+        {
+            return Repository.FindWithInfo(id);
+        }
     }
 }

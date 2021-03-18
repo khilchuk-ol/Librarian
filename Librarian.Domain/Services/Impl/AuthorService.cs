@@ -30,5 +30,10 @@ namespace Librarian.Domain.Services.Impl
         {
             a.Books = Repository.FindWithInfo(a.Id).Books;
         }
+
+        public Author GetAuthorWithInfo(int id)
+        {
+            return Repository.FindWithInfo(id);
+        }
     }
 }

@@ -3,13 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Librarian.Gui.Controls"
+             xmlns:local="clr-namespace:Librarian.Gui.Controls" 
+             xmlns:viewmodels="clr-namespace:Librarian.Gui.ViewModels" 
+             xmlns:models="clr-namespace:Librarian.Gui.Models;assembly=Librarian.Gui.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-    </Grid>
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type models:BookModel}">
+            <Border BorderBrush="Black" BorderThickness="1" Padding="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0"  Text="ID" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Title}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="1"  Text="Name" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding ReleaseDate}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="Unit Price" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="2" Grid.Column="1"  Text="{Binding PageCount}" />
+
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:BooksViewModel}">
+            <DockPanel Margin="20">
+                <DockPanel DockPanel.Dock="Top">
+                    <TextBlock Margin="10,2" DockPanel.Dock="Left" Text="Enter Product Id" VerticalAlignment="Center" />
+
+                    <TextBox Margin="10,2" Width="50" VerticalAlignment="Center" Text="{Binding Path=SelectedBookId, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Button Content="Save Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding Path=FindBooksCommand}" Width="100" />
+
+                    <Button Content="Get Product" DockPanel.Dock="Right" Margin="10,2" VerticalAlignment="Center"
+                        Command="{Binding Path=GetBookCommand}" IsDefault="True" Width="100" />
+                </DockPanel>
+
+                <ContentControl Margin="20,10" Content="{Binding Path=SelectedBook}" />
+            </DockPanel>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
 </UserControl>

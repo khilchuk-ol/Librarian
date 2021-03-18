@@ -2,7 +2,7 @@
 using Librarian.Gui.Models;
 using Librarian.Mappers.Abstract;
 
-namespace Librarian.Mappers.Mappers.Impl
+namespace Librarian.Mappers.Impl
 {
     public class RecordMapper : IRecordMapper
     {

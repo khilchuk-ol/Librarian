@@ -5,5 +5,7 @@ namespace Librarian.Domain.Services.Abstract
     public interface IRecordService
     {
         void LoadInfo(Record r);
+        Record GetRecordWithInfo(int id);
+
     }
 }

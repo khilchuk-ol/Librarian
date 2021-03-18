@@ -39,5 +39,10 @@ namespace Librarian.Domain.Services.Impl
             b.Genres = tmp.Genres;
             b.Authors = tmp.Authors;
         }
+
+        public Book GetBookWithInfo(int id)
+        {
+            return Repository.FindWithInfo(id);
+        }
     }
 }
