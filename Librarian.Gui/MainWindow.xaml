@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Librarian.Gui.Controls"
         xmlns:vm="clr-namespace:Librarian.Gui.ViewModels"
-        xmlns:models="clr-namespace:Librarian.Gui.Models;assembly=Librarian.Gui.Models"
+        xmlns:models="clr-namespace:Librarian.Gui.Models;assembly=Librarian.Gui.Models" d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         mc:Ignorable="d"
         Title="Librarian" Height="450" Width="800">
 
@@ -30,40 +30,28 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Button Height="50" Content="Home" Click="btnHome_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="Orange" />
-                </Button.Background>
-            </Button>
-            <Button Height="50" Content="Books" Click="btnBooks_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="Orange" />
-                </Button.Background>
-            </Button>
-            <Button Height="50" Content="Authors" Click="btnAuthors_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="Orange" />
-                </Button.Background>
-            </Button>
-            <Button Height="50" Content="Genres" Click="btnGenres_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="Orange" />
-                </Button.Background>
-            </Button>
-            <Button Height="50" Content="Readers" Click="btnReaders_Click">
-                <Button.Background>
-                    <SolidColorBrush Color="Orange" />
-                </Button.Background>
-            </Button>
+        <DockPanel>
+            <Border Width="70" DockPanel.Dock="Left" BorderBrush="White" BorderThickness="0,0,1,0">
+                <ItemsControl ItemsSource="{Binding PageViewModels}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}"
+                                    Height="50"
+                                    Width="65"
+                                    Cursor="Hand"
+                                    Background="Orange"
+                                    Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding }"
+                                    Margin="2,5">
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
             <Rectangle Fill="White" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualHeight}"></Rectangle>
-        </StackPanel>
-        <Grid x:Name="Content" Grid.Column="1">
-            <ContentControl Content="{Binding CurrentPageViewModel}" />
-        </Grid>
+            <Grid>
+                <ContentControl Content="{Binding CurrentPageViewModel}" />
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

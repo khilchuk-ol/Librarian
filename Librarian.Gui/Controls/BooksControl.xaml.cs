@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Librarian.Gui.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Librarian.Gui.Controls
 {
@@ -23,6 +12,15 @@ namespace Librarian.Gui.Controls
         public BooksControl()
         {
             InitializeComponent();
+            /*var vm = (BooksViewModel)DataContext;
+            vm.AmountToDisplay = (int)((Height - 100) / 40);*/
+            SizeChanged += OnWindowSizeChanged;
+        }
+
+        protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var vm = (BooksViewModel)DataContext;
+            vm.AmountToDisplay = (int)((e.NewSize.Height - 20) / 40);
         }
     }
 }

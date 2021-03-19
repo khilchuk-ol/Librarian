@@ -2,6 +2,7 @@
 using Librarian.Data.Repo.Abstract;
 using Librarian.Domain.Models.Core;
 using Librarian.Domain.Services.Abstract;
+using System.Collections.Generic;
 
 namespace Librarian.Domain.Services.Impl
 {
@@ -23,6 +24,11 @@ namespace Librarian.Domain.Services.Impl
         public Record GetRecordWithInfo(int id)
         {
             return Repository.FindWithInfo(id);
+        }
+
+        public IEnumerable<Record> GetRecords()
+        {
+            return Repository.FindAll();
         }
     }
 }

@@ -60,6 +60,8 @@ namespace Librarian.Gui.ViewModels
         {
             _pageViewModels.Add(new HomeViewModel());
             _pageViewModels.Add(new BooksViewModel(bService, aService, bookMapper));
+
+            CurrentPageViewModel = _pageViewModels.Find(vm => vm.Name == "Home");
         }
 
         private void ChangeViewModel(ViewModel viewModel)

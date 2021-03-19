@@ -47,5 +47,10 @@ namespace Librarian.Domain.Services.Impl
         {
             return Repository.FindWithInfo(id);
         }
+
+        public IEnumerable<Reader> GetReaders()
+        {
+            return Repository.FindAll();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Librarian.Domain.Services.Abstract
         IEnumerable<Author> FindAuthorsByName(string query);
         void LoadInfo(Author a);
         Author GetAuthorWithInfo(int id);
+        IEnumerable<Author> GetAuthors();
     }
 }

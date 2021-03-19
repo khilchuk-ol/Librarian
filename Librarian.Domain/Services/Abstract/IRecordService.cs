@@ -1,4 +1,5 @@
 ﻿using Librarian.Domain.Models.Core;
+using System.Collections.Generic;
 
 namespace Librarian.Domain.Services.Abstract
 {
@@ -6,6 +7,6 @@ namespace Librarian.Domain.Services.Abstract
     {
         void LoadInfo(Record r);
         Record GetRecordWithInfo(int id);
-
+        IEnumerable<Record> GetRecords();
     }
 }

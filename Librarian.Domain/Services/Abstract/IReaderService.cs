@@ -9,5 +9,6 @@ namespace Librarian.Domain.Services.Abstract
         IEnumerable<Reader> FindReaderByTicket(int number);
         void LoadInfo(Reader r);
         Reader GetReaderWithInfo(int id);
+        IEnumerable<Reader> GetReaders();
     }
 }

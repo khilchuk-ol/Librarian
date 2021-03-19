@@ -35,5 +35,10 @@ namespace Librarian.Domain.Services.Impl
         {
             return Repository.FindWithInfo(id);
         }
+
+        public IEnumerable<Author> GetAuthors()
+        {
+            return Repository.FindAll();
+        }
     }
 }

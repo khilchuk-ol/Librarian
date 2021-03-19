@@ -19,10 +19,15 @@ namespace Librarian.Gui.ViewModels
         private int _selectedBookId;
         private BookModel _selectedBook;
         private ObservableCollection<BookModel> _books;
+        private int _amountToDisplay;
+        private int _offset;
 
         private ICommand _getBookCommand;
         private ICommand _findBooksCommand;
-        //private ICommand _findBooksByAuthor;
+        private ICommand _setFindTypeToTitleCommand;
+        private ICommand _setFindTypeToAuthorCommand;
+        private ICommand _moveNextCommand;
+        private ICommand _moveBackCommand;
 
         private IBookService _bookService;
         private IAuthorService _authorService;
@@ -102,38 +107,40 @@ namespace Librarian.Gui.ViewModels
                 {
                     _findBooksCommand = new RelayCommand(
                         _ => FindBooks(),
-                        _ => !string.IsNullOrWhiteSpace(Query) && BookFindType.HasValue);
+                        _ => Query != null && BookFindType.HasValue);
                 }
                 return _findBooksCommand;
             }
         }
-        /*public ICommand FindBooksByAuthor
+        
+        public ICommand SetFindTypeToTitleCommand
         {
-            get => _findBooksByAuthor; 
-            set
+            get
             {
-                if (value != _findBooksByAuthor)
+                if (_setFindTypeToTitleCommand == null)
                 {
-                    _findBooksByAuthor = value;
-                    OnPropertyChanged(nameof(FindBooksByAuthor));
+                    _setFindTypeToTitleCommand = new RelayCommand(
+                        _ => BookFindType = Enums.BookFindType.ByTitle);
                 }
+                return _setFindTypeToTitleCommand;
             }
         }
-        public ICommand FindBooksByTitle
+        public ICommand SetFindTypeToAuthorCommand
         {
-            get => _findBooksByTitle; 
-            set
+            get
             {
-                if (value != _findBooksByTitle)
+                if (_setFindTypeToAuthorCommand == null)
                 {
-                    _findBooksByTitle = value;
-                    OnPropertyChanged(nameof(FindBooksByTitle));
+                    _setFindTypeToAuthorCommand = new RelayCommand(
+                        _ => BookFindType = Enums.BookFindType.ByAuthor);
                 }
+                return _setFindTypeToAuthorCommand;
             }
-        }*/
+        }
+
         public ObservableCollection<BookModel> Books
         {
-            get => _books;
+            get => new ObservableCollection<BookModel>(_books.Skip(_offset).Take(_amountToDisplay));
             set
             {
                 if(_books != value)
@@ -143,13 +150,71 @@ namespace Librarian.Gui.ViewModels
                 }
             }
         }
+        public int Offset
+        {
+            get => _offset;
+            set
+            {
+                if(value != _offset)
+                {
+                    _offset = value;
+                    OnPropertyChanged(nameof(Offset));
+                    OnPropertyChanged(nameof(Books));
+                }
+            }
+        }
+        public int AmountToDisplay
+        {
+            get => _amountToDisplay;
+            set
+            {
+                if(value != _amountToDisplay)
+                {
+                    _amountToDisplay = value;
+                    OnPropertyChanged(nameof(AmountToDisplay));
+                    OnPropertyChanged(nameof(Books));
+                }
+            }
+        }
+        public ICommand MoveNextCommand
+        {
+            get
+            {
+                if (_moveNextCommand == null)
+                {
+                    _moveNextCommand = new RelayCommand(
+                        _ => Offset += _amountToDisplay,
+                        _ => Offset + _amountToDisplay <= _books.Count);
+                }
+                return _moveNextCommand;
+            }
+        }
+        public ICommand MoveBackCommand
+        {
+            get
+            {
+                if (_moveBackCommand == null)
+                {
+                    _moveBackCommand = new RelayCommand(
+                        _ => Offset -= _amountToDisplay,
+                        _ => Offset - _amountToDisplay > 0);
+                }
+                return _moveBackCommand;
+            }
+        }
         #endregion
 
         public BooksViewModel(IBookService bService, IAuthorService aService, IBookMapper bookMapper)
         {
+            Name = "Books";
+            Query = "";
+            Offset = 0;
+            AmountToDisplay = 9;
+            BookFindType = Enums.BookFindType.ByTitle;
             _bookService = bService ?? throw new ArgumentNullException("Cannot pass null as a book service for BooksViewModel");
             _authorService = aService ?? throw new ArgumentNullException("Cannot pass null as an author service for BooksViewModel");
             _bookMapper = bookMapper ?? throw new ArgumentNullException("Cannot pass null as an abook mapper for BooksViewModel");
+            _books = new ObservableCollection<BookModel>(_bookService.GetBooks().Select(b => _bookMapper.Map(b)));
         }
 
         private void GetBook()

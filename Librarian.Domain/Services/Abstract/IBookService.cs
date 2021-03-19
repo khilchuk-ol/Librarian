@@ -9,5 +9,6 @@ namespace Librarian.Domain.Services.Abstract
         IEnumerable<Book> FindBooksByAuthor(Author a);
         void LoadInfo(Book b);
         Book GetBookWithInfo(int id);
+        IEnumerable<Book> GetBooks();
     }
 }

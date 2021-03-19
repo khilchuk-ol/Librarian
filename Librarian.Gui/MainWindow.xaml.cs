@@ -24,29 +24,5 @@ namespace Librarian.Gui
         {
             InitializeComponent();
         }
-
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnBooks_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void btnAuthors_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnGenres_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnReaders_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

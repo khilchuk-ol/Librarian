@@ -22,6 +22,7 @@ namespace Librarian.Data.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("dbo");
             base.OnModelCreating(modelBuilder);
         }
     }
