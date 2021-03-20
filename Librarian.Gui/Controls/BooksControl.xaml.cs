@@ -20,7 +20,7 @@ namespace Librarian.Gui.Controls
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             var vm = (BooksViewModel)DataContext;
-            vm.AmountToDisplay = (int)((e.NewSize.Height - 20) / 40);
+            vm.AmountToDisplay = (int)((e.NewSize.Height - 60) / 40);
         }
     }
 }

@@ -26,11 +26,11 @@ namespace Librarian.Domain.Services.Impl
             return strategy.Find(title);
         }
 
-        public IEnumerable<Book> FindBooksByAuthor([NotNull]Author a)
+        public IEnumerable<Book> FindBooksByAuthor(int authorId)
         {
             var strategy = Factory.Create(FindBooksType.ByAuthor);
 
-            return strategy.Find(a);
+            return strategy.Find(authorId);
         }
 
         public void LoadInfo(Book b)

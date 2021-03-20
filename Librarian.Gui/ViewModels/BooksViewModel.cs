@@ -1,9 +1,8 @@
-﻿using Librarian.Domain.Services.Abstract;
-using Librarian.Gui.Command;
+﻿using Librarian.Gui.Command;
 using Librarian.Gui.Models;
+using Librarian.Gui.Services.Abstract;
 using Librarian.Gui.ViewModels.Abstract;
 using Librarian.Gui.ViewModels.Enums;
-using Librarian.Mappers.Abstract;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,25 +12,23 @@ namespace Librarian.Gui.ViewModels
 {
     public class BooksViewModel : ViewModel
     {
-        #region fileds
+        #region fields
         private string _query;
-        private BookFindType? _type;
-        private int _selectedBookId;
-        private BookModel _selectedBook;
+        private BookFindType _type;
         private ObservableCollection<BookModel> _books;
         private int _amountToDisplay;
         private int _offset;
 
-        private ICommand _getBookCommand;
         private ICommand _findBooksCommand;
         private ICommand _setFindTypeToTitleCommand;
         private ICommand _setFindTypeToAuthorCommand;
         private ICommand _moveNextCommand;
         private ICommand _moveBackCommand;
+        private ICommand _displayAllCommand;
+        private ICommand _showBookCommand;
 
-        private IBookService _bookService;
-        private IAuthorService _authorService;
-        private IBookMapper _bookMapper;
+        private IBookModelService _bookService;
+        private IAuthorModelService _authorService;
         #endregion
 
         #region properties
@@ -48,32 +45,7 @@ namespace Librarian.Gui.ViewModels
             }
         }
 
-        public int SelectedBookId
-        {
-            get => _selectedBookId;
-            set
-            {
-                if (value != _selectedBookId)
-                {
-                    _selectedBookId = value;
-                    OnPropertyChanged(nameof(SelectedBookId));
-                }
-            }
-        }
-        public BookModel SelectedBook
-        {
-            get => _selectedBook;
-            set
-            {
-                if (value != _selectedBook)
-                {
-                    _selectedBook = value;
-                    OnPropertyChanged(nameof(SelectedBook));
-                }
-            }
-        }
-
-        public BookFindType? BookFindType
+        public BookFindType BookFindType
         {
             get => _type;
             set
@@ -86,19 +58,6 @@ namespace Librarian.Gui.ViewModels
             }
         }
 
-        public ICommand GetBookCommand
-        {
-            get
-            {
-                if(_getBookCommand == null)
-                {
-                    _getBookCommand = new RelayCommand(
-                        _ => GetBook(),
-                        _ => SelectedBookId > 0);
-                }
-                return _getBookCommand;
-            }
-        }
         public ICommand FindBooksCommand
         {
             get
@@ -107,7 +66,7 @@ namespace Librarian.Gui.ViewModels
                 {
                     _findBooksCommand = new RelayCommand(
                         _ => FindBooks(),
-                        _ => Query != null && BookFindType.HasValue);
+                        _ => Query != null);
                 }
                 return _findBooksCommand;
             }
@@ -120,7 +79,7 @@ namespace Librarian.Gui.ViewModels
                 if (_setFindTypeToTitleCommand == null)
                 {
                     _setFindTypeToTitleCommand = new RelayCommand(
-                        _ => BookFindType = Enums.BookFindType.ByTitle);
+                        _ => BookFindType = BookFindType.ByTitle);
                 }
                 return _setFindTypeToTitleCommand;
             }
@@ -132,7 +91,7 @@ namespace Librarian.Gui.ViewModels
                 if (_setFindTypeToAuthorCommand == null)
                 {
                     _setFindTypeToAuthorCommand = new RelayCommand(
-                        _ => BookFindType = Enums.BookFindType.ByAuthor);
+                        _ => BookFindType = BookFindType.ByAuthor);
                 }
                 return _setFindTypeToAuthorCommand;
             }
@@ -184,7 +143,7 @@ namespace Librarian.Gui.ViewModels
                 {
                     _moveNextCommand = new RelayCommand(
                         _ => Offset += _amountToDisplay,
-                        _ => Offset + _amountToDisplay <= _books.Count);
+                        _ => Offset + _amountToDisplay < _books.Count);
                 }
                 return _moveNextCommand;
             }
@@ -197,59 +156,80 @@ namespace Librarian.Gui.ViewModels
                 {
                     _moveBackCommand = new RelayCommand(
                         _ => Offset -= _amountToDisplay,
-                        _ => Offset - _amountToDisplay > 0);
+                        _ => Offset - _amountToDisplay >= 0);
                 }
                 return _moveBackCommand;
             }
         }
+        public ICommand DisplayAllCommand
+        {
+            get
+            {
+                if (_displayAllCommand == null)
+                {
+                    _displayAllCommand = new RelayCommand(
+                        _ => DisplayAll());
+                }
+                return _displayAllCommand;
+            }
+        }
+
+        public ICommand ShowBookCommand
+        {
+            get
+            {
+                if (_showBookCommand == null)
+                {
+                     _showBookCommand = new RelayCommand(
+                        param => ShowBook((int)param));
+                }
+                return _showBookCommand;
+            }
+        }
         #endregion
 
-        public BooksViewModel(IBookService bService, IAuthorService aService, IBookMapper bookMapper)
+        public BooksViewModel(IBookModelService bService, IAuthorModelService aService)
         {
             Name = "Books";
             Query = "";
             Offset = 0;
             AmountToDisplay = 9;
-            BookFindType = Enums.BookFindType.ByTitle;
-            _bookService = bService ?? throw new ArgumentNullException("Cannot pass null as a book service for BooksViewModel");
-            _authorService = aService ?? throw new ArgumentNullException("Cannot pass null as an author service for BooksViewModel");
-            _bookMapper = bookMapper ?? throw new ArgumentNullException("Cannot pass null as an abook mapper for BooksViewModel");
-            _books = new ObservableCollection<BookModel>(_bookService.GetBooks().Select(b => _bookMapper.Map(b)));
-        }
-
-        private void GetBook()
-        {
-            var book = _bookService.GetBookWithInfo(SelectedBookId);
-            SelectedBook = _bookMapper.Map(book);
+            BookFindType = BookFindType.ByTitle;
+            _bookService = bService ?? throw new ArgumentNullException($"Cannot pass null as a book service for {nameof(BooksViewModel)}");
+            _authorService = aService ?? throw new ArgumentNullException($"Cannot pass null as an author service for {nameof(BooksViewModel)}");
+            _books = _bookService.GetBooks();
         }
 
         private void FindBooks()
         {
-            if(BookFindType == Enums.BookFindType.ByTitle)
+            if(BookFindType == BookFindType.ByTitle)
             {
                 FindBooksByTitle();
             }
-            if(BookFindType == Enums.BookFindType.ByAuthor)
+            if(BookFindType == BookFindType.ByAuthor)
             {
                 FindBooksByAuthor();
             }
         }
         private void FindBooksByTitle()
         {
-            var res = _bookService.FindBooksByTitle(Query);
-            Books = new ObservableCollection<BookModel>(res.Select(b => _bookMapper.Map(b)));
-            return;
+            Books = _bookService.FindBooksByTitle(Query);
         }
         private void FindBooksByAuthor()
         {
             var authors = _authorService.FindAuthorsByName(Query);
+            Books = new ObservableCollection<BookModel>(authors.SelectMany(a => _bookService.FindBooksByAuthor(a.Id)));
+        }
 
-            if (authors.Count() > 0)
-            {
-                var res = authors.SelectMany(a => _bookService.FindBooksByAuthor(a)).ToHashSet();
-                Books = new ObservableCollection<BookModel>(res.Select(b => _bookMapper.Map(b)));
-                return;
-            }
+        private void DisplayAll()
+        {
+            Offset = 0;
+            Books = _bookService.GetBooks();
+        }
+
+        private void ShowBook(int id)
+        {
+
         }
     }
 }

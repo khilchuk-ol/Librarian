@@ -13,16 +13,16 @@ namespace Librarian.Domain.Strategies.Impl
 
         public FindBooksByAuthorStrategy(IBookRepository repository) => _repository = repository;
 
-        public override IEnumerable<Book> Find(object author)
+        public override IEnumerable<Book> Find(object authorId)
         {
             try
             {
-                var criterion = (Author)author;
+                var criterion = (int)authorId;
                 return _repository.FindBooksByAuthor(criterion);
             }
             catch (InvalidCastException)
             {
-                throw new InvalidStrategyArgumentTypeException<Book>(author.GetType(), this);
+                throw new InvalidStrategyArgumentTypeException<Book>(authorId.GetType(), this);
             }
         }
     }

@@ -6,9 +6,9 @@ namespace Librarian.Data.Repo.Abstract
     public interface IBookRepository : IRepository<Book, int>
     {
         IEnumerable<Book> FindBooksByTitle(string title);
-        IEnumerable<Book> FindBooksByAuthor(Author a);
+        IEnumerable<Book> FindBooksByAuthor(int authorId);
         IEnumerable<Book> FindBooksByTitleWithInfo(string title);
-        IEnumerable<Book> FindBooksByAuthorWithInfo(Author a);
+        IEnumerable<Book> FindBooksByAuthorWithInfo(int authorId);
         IEnumerable<Book> FindAllWithInfo();
         IEnumerable<Book> FindIncludeAllWithInfo();
         Book FindWithInfo(int id);

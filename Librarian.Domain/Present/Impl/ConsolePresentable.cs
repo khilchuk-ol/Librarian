@@ -221,7 +221,7 @@ namespace Librarian.Domain.Present.Impl
                 Console.WriteLine("Nothing was found");
             else
             {
-                var res = authors.SelectMany(a => bs.FindBooksByAuthor(a)).ToHashSet();
+                var res = authors.SelectMany(a => bs.FindBooksByAuthor(a.Id)).ToHashSet();
 
                 if (res.Count() == 0)
                 {

@@ -1,17 +1,16 @@
-﻿<UserControl x:Class="Librarian.Gui.Controls.BooksControl"
+﻿<UserControl x:Class="Librarian.Gui.Controls.ReadersControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Librarian.Gui.Controls" 
+             xmlns:local="clr-namespace:Librarian.Gui.Controls"
              xmlns:vm="clr-namespace:Librarian.Gui.ViewModels" 
              xmlns:models="clr-namespace:Librarian.Gui.Models;assembly=Librarian.Gui.Models"
+             d:DataContext="{d:DesignInstance Type=vm:ReadersViewModel}"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=vm:BooksViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type models:BookModel}">
+        <DataTemplate DataType="{x:Type models:ReaderModel}">
             <Border BorderBrush="White" BorderThickness="1" Padding="20">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -20,9 +19,9 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="1" Text="{Binding PageCount}" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="2" Text="{Binding ReleaseDate}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="0" Text="{Binding Fullname}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Text="{Binding Phone}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Text="{Binding TicketNumber}" VerticalAlignment="Center" />
 
                 </Grid>
             </Border>
@@ -36,7 +35,7 @@
                     Command="{Binding DisplayAllCommand}">
             </Button>
             <Button HorizontalAlignment="Left" Width="30" Background="White"
-                    Command="{Binding FindBooksCommand}" Cursor="Hand">
+                    Command="{Binding FindReadersCommand}" Cursor="Hand">
                 <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\search.png"></Image>
             </Button>
             <TextBox Height="26" VerticalAlignment="Center"
@@ -44,8 +43,10 @@
 
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" Height="30" HorizontalAlignment="Center">
-            <RadioButton GroupName="SearchType" Content="title" Width="100" Command="{Binding SetFindTypeToTitleCommand, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand" IsChecked="True"/>
-            <RadioButton GroupName="SearchType" Content="author" Width="100" Command="{Binding SetFindTypeToAuthorCommand, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"/>
+            <RadioButton GroupName="SearchType" Content="name" Width="100" Command="{Binding SetFindTypeToNameCommand, UpdateSourceTrigger=PropertyChanged}" 
+                         Cursor="Hand" IsChecked="True"/>
+            <RadioButton GroupName="SearchType" Content="ticket number" Width="100" Command="{Binding SetFindTypeToTicketCommand, UpdateSourceTrigger=PropertyChanged}" 
+                         Cursor="Hand"/>
         </DockPanel>
         <DockPanel Margin="30,0" DockPanel.Dock="Top" Height="20">
             <Grid>
@@ -55,22 +56,22 @@
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Title" Grid.Column="0" TextAlignment="Left"/>
-                <TextBlock Text="Pages" Grid.Column="1" TextAlignment="Left"/>
-                <TextBlock Text="Release date" Grid.Column="2" TextAlignment="Left"/>
+                <TextBlock Text="Name" Grid.Column="0" TextAlignment="Left"/>
+                <TextBlock Text="Phone" Grid.Column="1" TextAlignment="Left"/>
+                <TextBlock Text="Ticket number" Grid.Column="2" TextAlignment="Left"/>
 
             </Grid>
         </DockPanel>
         <Grid>
-            <ItemsControl Margin="20,0" ItemsSource="{Binding Books}">
+            <ItemsControl Margin="20,0" ItemsSource="{Binding Readers}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:BookModel}">
+                    <DataTemplate DataType="{x:Type models:ReaderModel}">
 
                         <Button Height="20"
                                 Cursor="Hand"
                                 Background="Wheat"
-                                Command="{Binding DataContext.ShowBookCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                CommandParameter="{Binding Id}"
+                                Command="{Binding }"
+                                CommandParameter="{Binding }"
                                 Margin="2,5">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -79,9 +80,9 @@
                                     <ColumnDefinition Width="100"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding Title}" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="1" Text="{Binding PageCount}" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="2" Text="{Binding ReleaseDate}" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Column="0" Text="{Binding Fullname}" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Column="1" Text="{Binding Phone}" HorizontalAlignment="Left" />
+                                <TextBlock Grid.Column="2" Text="{Binding TicketNumber}" HorizontalAlignment="Left" />
 
                             </Grid>
                         </Button>
@@ -100,5 +101,4 @@
             </DockPanel>
         </Grid>
     </DockPanel>
-
 </UserControl>

@@ -6,11 +6,11 @@ namespace Librarian.Gui.Command
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
-        private readonly Predicate<object> _canExecute;
+        private readonly Func<object, bool> _canExecute;
 
         public RelayCommand(Action<object> execute) : this(execute, null) { }
 
-        public RelayCommand(Action<object> execute, Predicate<object> canExecute)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             _execute = execute ?? throw new ArgumentNullException("Trying to pass null as the delegate to be executed");
             _canExecute = canExecute;

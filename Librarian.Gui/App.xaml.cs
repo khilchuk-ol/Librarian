@@ -1,7 +1,6 @@
-﻿using Librarian.Domain.Services.Abstract;
-using Librarian.Gui.App_Start;
+﻿using Librarian.Gui.App_Start;
+using Librarian.Gui.Services.Abstract;
 using Librarian.Gui.ViewModels;
-using Librarian.Mappers.Abstract;
 using System.Windows;
 using Unity;
 
@@ -19,7 +18,10 @@ namespace Librarian.Gui
             var container = UnityConfig.Container;
 
             MainWindow main = new MainWindow();
-            MainViewModel context = new MainViewModel(container.Resolve<IBookService>(), container.Resolve<IAuthorService>(), container.Resolve<IBookMapper>());
+            MainViewModel context = new MainViewModel(container.Resolve<IBookModelService>(), 
+                                                      container.Resolve<IAuthorModelService>(), 
+                                                      container.Resolve<IReaderModelService>(),
+                                                      container.Resolve<IRecordModelService>());
             main.DataContext = context;
             main.Show();
         }

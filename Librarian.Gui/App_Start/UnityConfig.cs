@@ -9,6 +9,8 @@ using Librarian.Domain.Models.Core;
 using Librarian.Domain.Services.Abstract;
 using Librarian.Domain.Services.Impl;
 using Librarian.Domain.Strategies.TypesEnum;
+using Librarian.Gui.Services.Abstract;
+using Librarian.Gui.Services.Impl;
 using Librarian.Mappers.Abstract;
 using Librarian.Mappers.Impl;
 using System;
@@ -50,7 +52,7 @@ namespace Librarian.Gui.App_Start
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<DbContext, LibrarianContext>(new PerThreadLifetimeManager());
+            container.RegisterType<DbContext, LibrarianContext>(new SingletonLifetimeManager());
 
             container.RegisterType<IBookRepository, BookRepository>();
             container.RegisterType<IRecordRepository, RecordRepository>();
@@ -72,7 +74,10 @@ namespace Librarian.Gui.App_Start
             container.RegisterType<IReaderMapper, ReaderMapper>();
             container.RegisterType<IAuthorMapper, AuthorMapper>();
             container.RegisterType<IGenreMapper, GenreMapper>();
-
+            container.RegisterType<IBookModelService, BookModelService>();
+            container.RegisterType<IAuthorModelService, AuthorModelService>();
+            container.RegisterType<IReaderModelService, ReaderModelService>();
+            container.RegisterType<IRecordModelService, RecordModelService>();
         }
     }
 }

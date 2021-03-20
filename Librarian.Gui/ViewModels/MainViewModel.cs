@@ -1,7 +1,6 @@
-﻿using Librarian.Domain.Services.Abstract;
-using Librarian.Gui.Command;
+﻿using Librarian.Gui.Command;
+using Librarian.Gui.Services.Abstract;
 using Librarian.Gui.ViewModels.Abstract;
-using Librarian.Mappers.Abstract;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -56,10 +55,12 @@ namespace Librarian.Gui.ViewModels
         }
         #endregion
 
-        public MainViewModel(IBookService bService, IAuthorService aService, IBookMapper bookMapper)
+        public MainViewModel(IBookModelService bookService, IAuthorModelService authorService, 
+                             IReaderModelService readerService, IRecordModelService recordService)
         {
             _pageViewModels.Add(new HomeViewModel());
-            _pageViewModels.Add(new BooksViewModel(bService, aService, bookMapper));
+            _pageViewModels.Add(new BooksViewModel(bookService, authorService));
+            _pageViewModels.Add(new ReadersViewModel(readerService));
 
             CurrentPageViewModel = _pageViewModels.Find(vm => vm.Name == "Home");
         }

@@ -89,9 +89,9 @@ namespace Librarian.Data.Repo.Impl
                                        .ToList();
         }
 
-        public IEnumerable<Book> FindBooksByAuthor(Author a)
+        public IEnumerable<Book> FindBooksByAuthor(int authorId)
         {
-            var ids =  _context.Set<BookAuthor>().Where(ba => ba.AuthorId == a.Id)
+            var ids =  _context.Set<BookAuthor>().Where(ba => ba.AuthorId == authorId)
                                                  .Select(ba => ba.BookId);
 
             return _context.Set<Book>().Where(b => ids.Contains(b.Id)).ToList();
@@ -127,13 +127,13 @@ namespace Librarian.Data.Repo.Impl
             });
         }
 
-        public IEnumerable<Book> FindBooksByAuthorWithInfo(Author a)
+        public IEnumerable<Book> FindBooksByAuthorWithInfo(int authorId)
         {
             var bookIds = from book in _context.Set<Book>()
                          join ab in _context.Set<BookAuthor>()
                              on book.Id equals ab.BookId
-                         where ab.AuthorId == a.Id
-                         select book.Id;
+                         where ab.AuthorId == authorId
+                          select book.Id;
 
             var res = (from book in _context.Set<Book>()
                        where bookIds.Contains(book.Id)
