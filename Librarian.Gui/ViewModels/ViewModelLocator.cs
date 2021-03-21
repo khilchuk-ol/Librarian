@@ -1,4 +1,5 @@
-﻿using Librarian.Gui.Controls.Enum;
+﻿using Librarian.Gui.Controls;
+using Librarian.Gui.Controls.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Librarian.Gui.ViewModels
         public ViewModelLocator(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
+
+            _controls.Add(ControlType.Home, new Lazy<UserControl>(() => new HomeControl()));
         }
     }
 }
