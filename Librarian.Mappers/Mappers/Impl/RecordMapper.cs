@@ -11,6 +11,7 @@ namespace Librarian.Mappers.Impl
             {
                 Id = from.Id,
                 BookId = from.BookId,
+                BookTitle = from.Book?.Title,
                 ReaderId = from.ReaderId,
                 BorrowDate = from.BorrowDate,
                 ReturnDate = from.ReturnDate

@@ -78,5 +78,15 @@ namespace Librarian.Data.Repo.Impl
                                         .Include(r => r.Reader)
                                         .FirstOrDefault();
         }
+
+        public IEnumerable<Record> GetActive(int readerId)
+        {
+            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate == null).ToList();
+        }
+
+        public IEnumerable<Record> GetPast(int readerId)
+        {
+            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate != null).ToList();
+        }
     }
 }

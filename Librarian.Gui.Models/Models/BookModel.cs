@@ -20,7 +20,7 @@ namespace Librarian.Gui.Models
         #region properties
         public int Id
         {
-            get { return _id; }
+            get => _id; 
             set
             {
                 if(value != _id)
@@ -34,7 +34,7 @@ namespace Librarian.Gui.Models
         [Range(0, int.MaxValue, ErrorMessage = "Librarian number of the book must be greater than 0")]
         public int Number
         {
-            get { return _number; }
+            get => _number; 
             set
             {
                 if(value != _number)
@@ -47,7 +47,7 @@ namespace Librarian.Gui.Models
         [Required(ErrorMessage = "Book's title must be specified")]
         public string Title
         {
-            get { return _title; }
+            get => _title; 
             set
             {
                 if(value != _title)
@@ -92,8 +92,13 @@ namespace Librarian.Gui.Models
                 {
                     _isBorrowed = value;
                     OnPropertyChanged(nameof(IsBorrowed));
+                    OnPropertyChanged(nameof(IsBorrowedStr));
                 }
             }
+        }
+        public string IsBorrowedStr
+        {
+            get => _isBorrowed ? "Currently borrowed" : "It is available now";
         }
 
         public string GenresStr

@@ -9,5 +9,7 @@ namespace Librarian.Data.Repo.Abstract
         Record FindIncludeWithInfo(int id);
         IEnumerable<Record> FindAllWithInfo();
         Record FindWithInfo(int id);
+        IEnumerable<Record> GetActive(int readerId);
+        IEnumerable<Record> GetPast(int readerId);
     }
 }

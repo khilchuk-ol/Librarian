@@ -20,14 +20,21 @@ namespace Librarian.Gui.ViewModels
         private int _amountToDisplay;
         private int _offset;
 
+        private ReaderModel _selectedReader;
+        private int _selectedReaderId;
+        private ObservableCollection<RecordModel> _curentlyBorrowedBookRecords;
+        private ObservableCollection<RecordModel> _returnedBookRecords;
+
         private ICommand _findReadersCommand;
         private ICommand _setFindTypeToNameCommand;
         private ICommand _setFindTypeToTicketCommand;
         private ICommand _moveNextCommand;
         private ICommand _moveBackCommand;
         private ICommand _displayAllCommand;
+        private ICommand _displayReaderCommand;
 
         private IReaderModelService _readerService;
+        private IRecordModelService _recordService;
         #endregion
 
         #region properties
@@ -174,16 +181,83 @@ namespace Librarian.Gui.ViewModels
                 return _displayAllCommand;
             }
         }
+
+        public int SelectedReaderId
+        {
+            get => _selectedReaderId;
+            set
+            {
+                if(value != _selectedReaderId)
+                {
+                    _selectedReaderId = value;
+                    GetReader();
+                    OnPropertyChanged(nameof(SelectedReaderId));
+                    OnPropertyChanged(nameof(SelectedReader));
+                }
+            }
+        }
+        public ReaderModel SelectedReader
+        {
+            get => _selectedReader;
+            set
+            {
+                if(value != _selectedReader)
+                {
+                    _selectedReader = value;
+                    OnPropertyChanged(nameof(SelectedReader));
+                }
+            }
+        }
+        public ICommand DisplayReaderCommand
+        {
+            get
+            {
+                if (_displayReaderCommand == null)
+                {
+                    _displayReaderCommand = new RelayCommand(
+                        param => SelectedReaderId = (int)param,
+                        param => param is int);
+                }
+                return _displayReaderCommand;
+            
+            }
+        }
+
+        public ObservableCollection<RecordModel> CurrentlyBorrowedBookRecords
+        {
+            get => _curentlyBorrowedBookRecords;
+            set
+            {
+                if(value != _curentlyBorrowedBookRecords)
+                {
+                    _curentlyBorrowedBookRecords = value;
+                    OnPropertyChanged(nameof(CurrentlyBorrowedBookRecords));
+                }
+            }
+        }
+        public ObservableCollection<RecordModel> ReturnedBookRecords
+        {
+            get => _returnedBookRecords;
+            set
+            {
+                if (value != _returnedBookRecords)
+                {
+                    _returnedBookRecords = value;
+                    OnPropertyChanged(nameof(ReturnedBookRecords));
+                }
+            }
+        }
         #endregion
 
-        public ReadersViewModel(IReaderModelService rService)
+        public ReadersViewModel(IReaderModelService readerService, IRecordModelService recordService)
         {
             Name = "Readers";
             Query = "";
             Offset = 0;
             AmountToDisplay = 9;
             ReaderFindType = ReaderFindType.ByName;
-            _readerService = rService ?? throw new ArgumentNullException($"Cannot pass null as a reader service for {nameof(ReadersViewModel)}");
+            _readerService = readerService ?? throw new ArgumentNullException($"Cannot pass null as a reader service for {nameof(ReadersViewModel)}");
+            _recordService = recordService ?? throw new ArgumentNullException($"Cannot pass null as a record service for {nameof(ReadersViewModel)}");
             _readers = _readerService.GetReaders();
         }
 
@@ -217,6 +291,13 @@ namespace Librarian.Gui.ViewModels
         {
             Offset = 0;
             Readers = _readerService.GetReaders();
+        }
+
+        private void GetReader()
+        {
+            SelectedReader = _readerService.GetReaderWithInfo(SelectedReaderId);
+            CurrentlyBorrowedBookRecords = _recordService.GetActive(SelectedReaderId);
+            ReturnedBookRecords = _recordService.GetPast(SelectedReaderId);
         }
     }
 }

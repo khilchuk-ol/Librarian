@@ -60,7 +60,7 @@ namespace Librarian.Gui.ViewModels
         {
             _pageViewModels.Add(new HomeViewModel());
             _pageViewModels.Add(new BooksViewModel(bookService, authorService));
-            _pageViewModels.Add(new ReadersViewModel(readerService));
+            _pageViewModels.Add(new ReadersViewModel(readerService, recordService));
 
             CurrentPageViewModel = _pageViewModels.Find(vm => vm.Name == "Home");
         }

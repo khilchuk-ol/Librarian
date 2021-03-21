@@ -84,9 +84,6 @@
     </ApplicationDefinition>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Command\RelayCommand.cs" />
-    <Compile Include="Controls\BookControl.xaml.cs">
-      <DependentUpon>BookControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\BooksControl.xaml.cs">
       <DependentUpon>BooksControl.xaml</DependentUpon>
     </Compile>
@@ -106,16 +103,11 @@
     <Compile Include="Services\Impl\RecordModelService.cs" />
     <Compile Include="ViewModels\Abstract\ViewModel.cs" />
     <Compile Include="ViewModels\BooksViewModel.cs" />
-    <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\Enums\BookFindType.cs" />
     <Compile Include="ViewModels\Enums\ReaderFindType.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ReadersViewModel.cs" />
-    <Page Include="Controls\BookControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\BooksControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

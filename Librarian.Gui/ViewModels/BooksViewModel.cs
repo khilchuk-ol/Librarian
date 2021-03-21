@@ -18,6 +18,8 @@ namespace Librarian.Gui.ViewModels
         private ObservableCollection<BookModel> _books;
         private int _amountToDisplay;
         private int _offset;
+        private int _selectedBookId;
+        private BookModel _selectedBook;
 
         private ICommand _findBooksCommand;
         private ICommand _setFindTypeToTitleCommand;
@@ -25,7 +27,7 @@ namespace Librarian.Gui.ViewModels
         private ICommand _moveNextCommand;
         private ICommand _moveBackCommand;
         private ICommand _displayAllCommand;
-        private ICommand _showBookCommand;
+        private ICommand _displayBookCommand;
 
         private IBookModelService _bookService;
         private IAuthorModelService _authorService;
@@ -174,16 +176,43 @@ namespace Librarian.Gui.ViewModels
             }
         }
 
-        public ICommand ShowBookCommand
+        public int SelectedBookId
+        {
+            get => _selectedBookId;
+            set
+            {
+                if (value != _selectedBookId)
+                {
+                    _selectedBookId = value;
+                    GetBook();
+                    OnPropertyChanged(nameof(SelectedBookId));
+                    OnPropertyChanged(nameof(SelectedBook));
+                }
+            }
+        }
+        public BookModel SelectedBook
+        {
+            get => _selectedBook;
+            set
+            {
+                if (value != _selectedBook)
+                {
+                    _selectedBook = value;
+                    OnPropertyChanged(nameof(SelectedBook));
+                }
+            }
+        }
+        public ICommand DisplayBookCommand
         {
             get
             {
-                if (_showBookCommand == null)
+                if (_displayBookCommand == null)
                 {
-                     _showBookCommand = new RelayCommand(
-                        param => ShowBook((int)param));
+                    _displayBookCommand = new RelayCommand(
+                        param => SelectedBookId = (int)param,
+                        param => param is int);
                 }
-                return _showBookCommand;
+                return _displayBookCommand;
             }
         }
         #endregion
@@ -227,9 +256,9 @@ namespace Librarian.Gui.ViewModels
             Books = _bookService.GetBooks();
         }
 
-        private void ShowBook(int id)
+        private void GetBook()
         {
-
+            SelectedBook = _bookService.GetBookWithInfo(SelectedBookId);
         }
     }
 }

@@ -30,5 +30,15 @@ namespace Librarian.Domain.Services.Impl
         {
             return Repository.FindAll();
         }
+
+        public IEnumerable<Record> GetActive(int readerId)
+        {
+            return Repository.GetActive(readerId);
+        }
+
+        public IEnumerable<Record> GetPast(int readerId)
+        {
+            return Repository.GetPast(readerId);
+        }
     }
 }

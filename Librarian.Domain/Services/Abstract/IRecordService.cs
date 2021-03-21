@@ -8,5 +8,7 @@ namespace Librarian.Domain.Services.Abstract
         void LoadInfo(Record r);
         Record GetRecordWithInfo(int id);
         IEnumerable<Record> GetRecords();
+        IEnumerable<Record> GetActive(int readerId);
+        IEnumerable<Record> GetPast(int readerId);
     }
 }

@@ -7,5 +7,7 @@ namespace Librarian.Gui.Services.Abstract
     {
         RecordModel GetRecordWithInfo(int id);
         ObservableCollection<RecordModel> GetRecords();
+        ObservableCollection<RecordModel> GetActive(int readerId);
+        ObservableCollection<RecordModel> GetPast(int readerId);
     }
 }

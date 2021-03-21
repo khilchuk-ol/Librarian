@@ -10,6 +10,7 @@ namespace Librarian.Gui.Models
         private DateTime _borrowDate;
         private DateTime? _returnDate;
         private int _bookId;
+        private string _bookTitle;
         private int _readerId;
         #endregion
 
@@ -62,6 +63,18 @@ namespace Librarian.Gui.Models
                 {
                     _bookId = value;
                     OnPropertyChanged(nameof(BookId));
+                }
+            }
+        }
+        public string BookTitle
+        {
+            get { return _bookTitle; }
+            set
+            {
+                if (value != _bookTitle)
+                {
+                    _bookTitle = value;
+                    OnPropertyChanged(nameof(BookTitle));
                 }
             }
         }

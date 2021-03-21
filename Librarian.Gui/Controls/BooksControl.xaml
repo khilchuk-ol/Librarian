@@ -12,20 +12,48 @@
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type models:BookModel}">
-            <Border BorderBrush="White" BorderThickness="1" Padding="20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="1" Text="{Binding PageCount}" VerticalAlignment="Center" />
-                    <TextBlock Grid.Column="2" Text="{Binding ReleaseDate}" VerticalAlignment="Center" />
 
-                </Grid>
-            </Border>
+                <TextBlock Margin="10,0" Grid.Row="0" FontSize="20">
+                        <Run Text="Title: "/>
+                        <Run Text="{Binding Title}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="1" FontSize="20">
+                        <Run Text="Number: "/>
+                        <Run Text="{Binding Number}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="2" FontSize="20">
+                        <Run Text="Authors: "/>
+                        <Run Text="{Binding AuthorsStr}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="3" FontSize="20">
+                        <Run Text="Genres: "/>
+                        <Run Text="{Binding GenresStr}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="4" FontSize="20">
+                        <Run Text="Release date: "/>
+                        <Run Text="{Binding ReleaseDate}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="5" FontSize="20">
+                        <Run Text="Number of pages: "/>
+                        <Run Text="{Binding PageCount}" FontWeight="Light"/>
+                </TextBlock>
+                <TextBlock Margin="10,0" Grid.Row="6" FontSize="20">
+                        <Run Text="Status: "/>
+                        <Run Text="{Binding Path=IsBorrowedStr, Mode=OneWay}" FontWeight="Light"/>
+                </TextBlock>
+
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -33,7 +61,7 @@
         <DockPanel DockPanel.Dock="Top" Height="30">
             <Button Background="White" HorizontalAlignment="Right" Width="30" Margin="0,0,10,0"
                     Content="All"
-                    Command="{Binding DisplayAllCommand}">
+                    Command="{Binding DisplayAllCommand}" Cursor="Hand">
             </Button>
             <Button HorizontalAlignment="Left" Width="30" Background="White"
                     Command="{Binding FindBooksCommand}" Cursor="Hand">
@@ -47,57 +75,72 @@
             <RadioButton GroupName="SearchType" Content="title" Width="100" Command="{Binding SetFindTypeToTitleCommand, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand" IsChecked="True"/>
             <RadioButton GroupName="SearchType" Content="author" Width="100" Command="{Binding SetFindTypeToAuthorCommand, UpdateSourceTrigger=PropertyChanged}" Cursor="Hand"/>
         </DockPanel>
-        <DockPanel Margin="30,0" DockPanel.Dock="Top" Height="20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="500"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="Title" Grid.Column="0" TextAlignment="Left"/>
-                <TextBlock Text="Pages" Grid.Column="1" TextAlignment="Left"/>
-                <TextBlock Text="Release date" Grid.Column="2" TextAlignment="Left"/>
-
-            </Grid>
-        </DockPanel>
         <Grid>
-            <ItemsControl Margin="20,0" ItemsSource="{Binding Books}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type models:BookModel}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-                        <Button Height="20"
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Grid.Column="0" Margin="10,0" Height="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Title" Grid.Column="0" TextAlignment="Left"/>
+                        <TextBlock Text="Number" Grid.Column="1" TextAlignment="Left"/>
+                    </Grid>
+                </DockPanel>
+
+                <Grid Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding Books}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:BookModel}">
+
+                                <Button Height="20"
                                 Cursor="Hand"
                                 Background="Wheat"
-                                Command="{Binding DataContext.ShowBookCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                Command="{Binding DataContext.DisplayBookCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                 CommandParameter="{Binding Id}"
                                 Margin="2,5">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="500"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="300"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding Title}" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="1" Text="{Binding PageCount}" HorizontalAlignment="Left" />
-                                <TextBlock Grid.Column="2" Text="{Binding ReleaseDate}" HorizontalAlignment="Left" />
+                                        <TextBlock Margin="5,0" Grid.Column="0" Text="{Binding Title}" TextAlignment="Left" />
+                                        <TextBlock Margin="5,0" Grid.Column="1" Text="{Binding Number}" TextAlignment="Left" />
 
-                            </Grid>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <DockPanel VerticalAlignment="Bottom" Height="30">
-                <Grid Width="200" HorizontalAlignment="Center">
-                    <Button Background="White" HorizontalAlignment="Left" Margin="25,0,0,0" Width="30" Command="{Binding MoveBackCommand}">
-                        <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\left_arrow.jpg"/>
-                    </Button>
-                    <Button Background="White" HorizontalAlignment="Right" Margin="0,0,25,0" Width="30" Command="{Binding MoveNextCommand}">
-                        <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\right_arrow.jpg"/>
-                    </Button>
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <DockPanel VerticalAlignment="Bottom" Height="30">
+                        <Grid Width="200" HorizontalAlignment="Center">
+                            <Button Background="White" HorizontalAlignment="Left" Margin="25,0,0,0" Width="30" Command="{Binding MoveBackCommand}">
+                                <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\left_arrow.jpg"/>
+                            </Button>
+                            <Button Background="White" HorizontalAlignment="Right" Margin="0,0,25,0" Width="30" Command="{Binding MoveNextCommand}">
+                                <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\right_arrow.jpg"/>
+                            </Button>
+                        </Grid>
+                    </DockPanel>
                 </Grid>
-            </DockPanel>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="10,10" Background="White" >
+                <Border BorderBrush="Orange" BorderThickness="2"/>
+                <ContentControl Content="{Binding SelectedBook}"/>
+            </Grid>
         </Grid>
     </DockPanel>
 

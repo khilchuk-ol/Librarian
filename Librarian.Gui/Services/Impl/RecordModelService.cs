@@ -29,5 +29,17 @@ namespace Librarian.Gui.Services.Impl
 
         public RecordModel GetRecordWithInfo(int id) =>
             _mapper.Map(_service.GetRecordWithInfo(id));
+
+        public ObservableCollection<RecordModel> GetPast(int readerId)
+        {
+            var res = _service.GetPast(readerId);
+            return new ObservableCollection<RecordModel>(res.Select(r => _mapper.Map(r)));
+        }
+
+        public ObservableCollection<RecordModel> GetActive(int readerId)
+        {
+            var res = _service.GetActive(readerId);
+            return new ObservableCollection<RecordModel>(res.Select(r => _mapper.Map(r)));
+        }
     }
 }
