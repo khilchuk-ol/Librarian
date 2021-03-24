@@ -87,8 +87,14 @@
     <Compile Include="Controls\BooksControl.xaml.cs">
       <DependentUpon>BooksControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HistoryControl.xaml.cs">
+      <DependentUpon>HistoryControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HomeControl.xaml.cs">
       <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReaderControl.xaml.cs">
+      <DependentUpon>ReaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ReadersControl.xaml.cs">
       <DependentUpon>ReadersControl.xaml</DependentUpon>
@@ -105,14 +111,24 @@
     <Compile Include="ViewModels\BooksViewModel.cs" />
     <Compile Include="ViewModels\Enums\BookFindType.cs" />
     <Compile Include="ViewModels\Enums\ReaderFindType.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ReadersViewModel.cs" />
+    <Compile Include="ViewModels\ReaderViewModel.cs" />
     <Page Include="Controls\BooksControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\HistoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

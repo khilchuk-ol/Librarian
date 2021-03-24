@@ -81,12 +81,12 @@ namespace Librarian.Data.Repo.Impl
 
         public IEnumerable<Record> GetActive(int readerId)
         {
-            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate == null).ToList();
+            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate == null).OrderByDescending(r => r.BorrowDate).ToList();
         }
 
         public IEnumerable<Record> GetPast(int readerId)
         {
-            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate != null).ToList();
+            return _context.Set<Record>().Where(r => r.ReaderId == readerId && r.ReturnDate != null).OrderByDescending(r => r.BorrowDate).ToList();
         }
     }
 }

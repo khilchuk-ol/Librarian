@@ -20,10 +20,9 @@ namespace Librarian.Gui.ViewModels
         private int _amountToDisplay;
         private int _offset;
 
-        private ReaderModel _selectedReader;
-        private int _selectedReaderId;
-        private ObservableCollection<RecordModel> _curentlyBorrowedBookRecords;
-        private ObservableCollection<RecordModel> _returnedBookRecords;
+        private ViewModel _currentDisplayViewModel;
+        private ReaderViewModel _readerViewModel;
+        private HistoryViewModel _historyViewModel;
 
         private ICommand _findReadersCommand;
         private ICommand _setFindTypeToNameCommand;
@@ -32,6 +31,7 @@ namespace Librarian.Gui.ViewModels
         private ICommand _moveBackCommand;
         private ICommand _displayAllCommand;
         private ICommand _displayReaderCommand;
+        private ICommand _displayHistoryCommand;
 
         private IReaderModelService _readerService;
         private IRecordModelService _recordService;
@@ -182,32 +182,6 @@ namespace Librarian.Gui.ViewModels
             }
         }
 
-        public int SelectedReaderId
-        {
-            get => _selectedReaderId;
-            set
-            {
-                if(value != _selectedReaderId)
-                {
-                    _selectedReaderId = value;
-                    GetReader();
-                    OnPropertyChanged(nameof(SelectedReaderId));
-                    OnPropertyChanged(nameof(SelectedReader));
-                }
-            }
-        }
-        public ReaderModel SelectedReader
-        {
-            get => _selectedReader;
-            set
-            {
-                if(value != _selectedReader)
-                {
-                    _selectedReader = value;
-                    OnPropertyChanged(nameof(SelectedReader));
-                }
-            }
-        }
         public ICommand DisplayReaderCommand
         {
             get
@@ -215,35 +189,36 @@ namespace Librarian.Gui.ViewModels
                 if (_displayReaderCommand == null)
                 {
                     _displayReaderCommand = new RelayCommand(
-                        param => SelectedReaderId = (int)param,
+                        param => DisplayReader((int)param),
                         param => param is int);
                 }
                 return _displayReaderCommand;
             
             }
         }
-
-        public ObservableCollection<RecordModel> CurrentlyBorrowedBookRecords
+        public ICommand DisplayHistoryCommand
         {
-            get => _curentlyBorrowedBookRecords;
-            set
+            get
             {
-                if(value != _curentlyBorrowedBookRecords)
+                if (_displayHistoryCommand == null)
                 {
-                    _curentlyBorrowedBookRecords = value;
-                    OnPropertyChanged(nameof(CurrentlyBorrowedBookRecords));
+                    _displayHistoryCommand = new RelayCommand(
+                        param => DisplayHistory((int)param),
+                        param => param is int);
                 }
+                return _displayHistoryCommand;
+
             }
         }
-        public ObservableCollection<RecordModel> ReturnedBookRecords
+        public ViewModel CurrentDisplayViewModel
         {
-            get => _returnedBookRecords;
+            get => _currentDisplayViewModel;
             set
             {
-                if (value != _returnedBookRecords)
+                if (_currentDisplayViewModel != value)
                 {
-                    _returnedBookRecords = value;
-                    OnPropertyChanged(nameof(ReturnedBookRecords));
+                    _currentDisplayViewModel = value;
+                    OnPropertyChanged(nameof(CurrentDisplayViewModel));
                 }
             }
         }
@@ -256,9 +231,14 @@ namespace Librarian.Gui.ViewModels
             Offset = 0;
             AmountToDisplay = 9;
             ReaderFindType = ReaderFindType.ByName;
+
             _readerService = readerService ?? throw new ArgumentNullException($"Cannot pass null as a reader service for {nameof(ReadersViewModel)}");
             _recordService = recordService ?? throw new ArgumentNullException($"Cannot pass null as a record service for {nameof(ReadersViewModel)}");
+
             _readers = _readerService.GetReaders();
+
+            _readerViewModel = new ReaderViewModel(this, _readerService, _recordService);
+            _historyViewModel = new HistoryViewModel(_recordService);
         }
 
         private void FindReaders()
@@ -293,11 +273,15 @@ namespace Librarian.Gui.ViewModels
             Readers = _readerService.GetReaders();
         }
 
-        private void GetReader()
+        private void DisplayReader(int id)
         {
-            SelectedReader = _readerService.GetReaderWithInfo(SelectedReaderId);
-            CurrentlyBorrowedBookRecords = _recordService.GetActive(SelectedReaderId);
-            ReturnedBookRecords = _recordService.GetPast(SelectedReaderId);
+            _readerViewModel.SelectedReaderId = id;
+            CurrentDisplayViewModel = _readerViewModel;
+        }
+        private void DisplayHistory(int id)
+        {
+            _historyViewModel.SelectedReaderId = id;
+            CurrentDisplayViewModel = _historyViewModel;
         }
     }
 }

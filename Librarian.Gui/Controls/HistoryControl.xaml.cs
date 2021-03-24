@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace Librarian.Gui.Controls
 {
     /// <summary>
-    /// Interaction logic for ReadersControl.xaml
+    /// Interaction logic for HistoryControl.xaml
     /// </summary>
-    public partial class ReadersControl : UserControl
+    public partial class HistoryControl : UserControl
     {
-        public ReadersControl()
+        public HistoryControl()
         {
             InitializeComponent();
             SizeChanged += OnWindowSizeChanged;
@@ -29,8 +29,8 @@ namespace Librarian.Gui.Controls
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var vm = (ReadersViewModel)DataContext;
-            vm.AmountToDisplay = (int)((e.NewSize.Height - 60) / 40);
+            var vm = (HistoryViewModel)DataContext;
+            vm.AmountToDisplay = (int)((e.NewSize.Height - 230) / 25);
         }
     }
 }

@@ -9,80 +9,14 @@
              d:DataContext="{d:DesignInstance Type=vm:ReadersViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type models:ReaderModel}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="28"/>
-                    <RowDefinition Height="28"/>
-                    <RowDefinition Height="28"/>
-                    <RowDefinition Height="28"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-
-                <TextBlock Margin="10,0" Grid.Row="0" FontSize="20">
-                        <Run Text="Fullname: "/>
-                        <Run Text="{Binding Path=Fullname, Mode=OneWay}" FontWeight="Light"/>
-                </TextBlock>
-                <TextBlock Margin="10,0" Grid.Row="1" FontSize="20">
-                        <Run Text="Ticket: "/>
-                        <Run Text="{Binding TicketNumber}" FontWeight="Light"/>
-                </TextBlock>
-                <TextBlock Margin="10,0" Grid.Row="2" FontSize="20">
-                        <Run Text="Phone: "/>
-                        <Run Text="{Binding Phone}" FontWeight="Light"/>
-                </TextBlock>
-                <TextBlock Margin="10,0" Grid.Row="3" FontSize="20">
-                        <Run Text="Passport: "/>
-                        <Run Text="{Binding Passport}" FontWeight="Light"/>
-                </TextBlock>
-
-                <Grid Grid.Row="4">
-                    
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <DockPanel Grid.Row="1" Grid.Column="0" Margin="10,0" Height="40">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="300"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock Text="Book" Grid.Column="0" TextAlignment="Left" FontSize="15"/>
-                                <TextBlock Text="Borrow date" Grid.Column="1" TextAlignment="Left" FontSize="15"/>
-                            </Grid>
-                        </DockPanel>
-
-                        <TextBlock Grid.Row="0" Text="Currently borrowed books: "  Margin="10,0" FontSize="20"/>
-
-                        <Grid Margin="10,0" Grid.Row="2">
-                            <ItemsControl ItemsSource="{Binding DataContext.CurrentlyBorrowedBookRecords, 
-                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type models:RecordModel}">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="300"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <TextBlock Text="{Binding BookTitle}" Grid.Column="0" TextAlignment="Left" FontSize="17" FontWeight="Light"/>
-                                            <TextBlock Text="{Binding BorrowDate, StringFormat={}{0:dd/MM/yyyy}}" Grid.Column="1" TextAlignment="Left" FontSize="17" FontWeight="Light"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </Grid>
-                </Grid>
-
-            </Grid>
+        <DataTemplate DataType="{x:Type vm:ReaderViewModel}">
+            <local:ReaderControl/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
+            <local:HistoryControl/>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -170,7 +104,8 @@
 
             <Grid Grid.Column="1" Margin="10,10" Background="White" >
                 <Border BorderBrush="Orange" BorderThickness="2"/>
-                <ContentControl Content="{Binding SelectedReader}"/>
+                <ContentControl Content="{Binding CurrentDisplayViewModel}"/>
+                
             </Grid>
         </Grid>
     </DockPanel>

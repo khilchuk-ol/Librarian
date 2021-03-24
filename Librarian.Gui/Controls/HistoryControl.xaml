@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Librarian.Gui.Controls.HistoryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Librarian.Gui.Controls"
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:Librarian.Gui.ViewModels" 
+             xmlns:models="clr-namespace:Librarian.Gui.Models;assembly=Librarian.Gui.Models"
+             d:DataContext="{d:DesignInstance Type=vm:HistoryViewModel}"
+             d:DesignHeight="330" d:DesignWidth="340">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="1" Grid.Column="0" Margin="10,0" Height="30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Book" Grid.Column="0" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="Borrow date" Grid.Column="1" TextAlignment="Left" FontSize="15"/>
+                    <TextBlock Text="Return date" Grid.Column="2" TextAlignment="Left" FontSize="15"/>
+                </Grid>
+            </DockPanel>
+
+            <TextBlock Grid.Row="0" Text="Returned books: "  Margin="10,0" FontSize="20"/>
+
+            <Grid Margin="10,0" Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding HistoryBookRecords}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:RecordModel}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding BookTitle}" Grid.Column="0" TextAlignment="Left" FontSize="17" FontWeight="Light"/>
+                                <TextBlock Text="{Binding BorrowDate, StringFormat={}{0:dd/MM/yyyy}}" Grid.Column="1" TextAlignment="Left" FontSize="17" FontWeight="Light"/>
+                                <TextBlock Text="{Binding ReturnDate, StringFormat={}{0:dd/MM/yyyy}}" Grid.Column="2" TextAlignment="Left" FontSize="17" FontWeight="Light"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+        <DockPanel VerticalAlignment="Bottom" Height="30" Margin="10, 10">
+            <Grid Width="200" HorizontalAlignment="Center">
+                <Button Background="White" HorizontalAlignment="Left" Margin="25,0,0,0" Width="30" Command="{Binding MoveBackCommand}">
+                    <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\left_arrow.jpg"/>
+                </Button>
+                <Button Background="White" HorizontalAlignment="Right" Margin="0,0,25,0" Width="30" Command="{Binding MoveNextCommand}">
+                    <Image Source="C:\Users\Olena\source\c#\Librarian\Librarian.Gui\Resource\images\right_arrow.jpg"/>
+                </Button>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>
