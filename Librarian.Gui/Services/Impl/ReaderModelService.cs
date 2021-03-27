@@ -33,6 +33,12 @@ namespace Librarian.Gui.Services.Impl
             return new ObservableCollection<ReaderModel>(res.Select(r => _mapper.Map(r)));
         }
 
+        public ObservableCollection<ReaderModel> GetPage(int offset, int amount)
+        {
+            var res = _service.GetPage(offset, amount);
+            return new ObservableCollection<ReaderModel>(res.Select(r => _mapper.Map(r)));
+        }
+
         public ObservableCollection<ReaderModel> GetReaders()
         {
             var res = _service.GetReaders();

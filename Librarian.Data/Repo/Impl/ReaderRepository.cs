@@ -57,27 +57,43 @@ namespace Librarian.Data.Repo.Impl
             }).FirstOrDefault();
         }
 
-        public IEnumerable<Reader> FindReadersByName(string name)
+        public IEnumerable<Reader> FindReadersByName(string name, int offset = 0, int amount = -1)
         {
-            return _context.Set<Reader>().Where(r => (r.Name + " " + r.Surname + " " + r.Parentname).Contains(name))
-                                         .ToList();
+            return amount < 0 ? _context.Set<Reader>().Where(r => (r.Name + " " + r.Surname + " " + r.Parentname).Contains(name))
+                                          .OrderBy(r => r.Name).ThenBy(r => r.Surname).ThenBy(r => r.Parentname)
+                                          .Skip(offset)
+                                          .ToList() :
+                    _context.Set<Reader>().Where(r => (r.Name + " " + r.Surname + " " + r.Parentname).Contains(name))
+                                          .OrderBy(r => r.Name).ThenBy(r => r.Surname).ThenBy(r => r.Parentname)
+                                          .Skip(offset)
+                                          .Take(amount)
+                                          .ToList();
         }
 
-        public IEnumerable<Reader> FindReadersByTicket(int ticketNumber)
+        public IEnumerable<Reader> FindReadersByTicket(int ticketNumber, int offset = 0, int amount = -1)
         {
-            return _context.Set<Reader>().Where(r => r.TicketNumber == ticketNumber)
-                                         .ToList();
+            return amount < 0 ? _context.Set<Reader>().Where(r => r.TicketNumber == ticketNumber)
+                                                      .OrderBy(r => r.Name).ThenBy(r => r.Surname).ThenBy(r => r.Parentname)
+                                                      .Skip(offset)
+                                                      .ToList() :
+                                _context.Set<Reader>().Where(r => r.TicketNumber == ticketNumber)
+                                                      .OrderBy(r => r.Name).ThenBy(r => r.Surname).ThenBy(r => r.Parentname)
+                                                      .Skip(offset)
+                                                      .Take(amount)
+                                                      .ToList();
         }
 
-        public IEnumerable<Reader> FindReadersByNameWithInfo(string name)
+        public IEnumerable<Reader> FindReadersByNameWithInfo(string name, int offset = 0, int amount = -1)
         {
-            var res = (from reader in _context.Set<Reader>()
+            var que = (from reader in _context.Set<Reader>()
                        where (reader.Name + " " + reader.Surname + " " + reader.Parentname).Contains(name)
                        join record in _context.Set<Record>()
                            on reader.Id equals record.ReaderId
                            into readerRecords
                        orderby reader.Name, reader.Surname, reader.Parentname
-                       select new { Reader = reader, Records = readerRecords }).ToList();
+                       select new { Reader = reader, Records = readerRecords }).Skip(offset);
+
+            var res = amount < 0 ? que.ToList() : que.Take(amount).ToList();
 
             return res.Select(tmp =>
             {
@@ -87,15 +103,17 @@ namespace Librarian.Data.Repo.Impl
             });
         }
 
-        public IEnumerable<Reader> FindReadersByTicketWithInfo(int ticketNumber)
+        public IEnumerable<Reader> FindReadersByTicketWithInfo(int ticketNumber, int offset = 0, int amount = -1)
         {
-            var res = (from reader in _context.Set<Reader>()
+            var que = (from reader in _context.Set<Reader>()
                        where reader.TicketNumber == ticketNumber
                        join record in _context.Set<Record>()                               
                            on reader.Id equals record.ReaderId
                            into readerRecords
                        orderby reader.Name, reader.Surname, reader.Parentname
-                       select new { Reader = reader, Records = readerRecords }).ToList();
+                       select new { Reader = reader, Records = readerRecords }).Skip(offset);
+
+            var res = amount < 0 ? que.ToList() : que.Take(amount).ToList();
 
             return res.Select(tmp =>
             {

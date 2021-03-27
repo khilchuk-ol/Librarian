@@ -29,6 +29,11 @@ namespace Librarian.Data.Repo.Impl
             return _context.Set<TEntity>().ToList();
         }
 
+        public IEnumerable<TEntity> GetPage(int offset, int amount)
+        {
+            return _context.Set<TEntity>().Skip(offset).Take(amount).ToList();
+        }
+
         public void Remove(TEntity item)
         {
             _context.Set<TEntity>().Remove(item);

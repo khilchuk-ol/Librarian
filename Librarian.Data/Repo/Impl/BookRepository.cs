@@ -83,23 +83,38 @@ namespace Librarian.Data.Repo.Impl
             }).FirstOrDefault();
         }
 
-        public IEnumerable<Book> FindBooksByTitle(string title)
+        public IEnumerable<Book> FindBooksByTitle(string title, int offset = 0, int amount = -1)
         {
-            return _context.Set<Book>().Where(b => b.Title.Contains(title))
-                                       .ToList();
+            return amount < 0 ? _context.Set<Book>().Where(b => b.Title.Contains(title))
+                                                    .OrderBy(b => b.Title)
+                                                    .Skip(offset)
+                                                    .ToList() :
+                                _context.Set<Book>().Where(b => b.Title.Contains(title))
+                                                    .OrderBy(b => b.Title)
+                                                    .Skip(offset)
+                                                    .Take(amount)
+                                                    .ToList();
         }
 
-        public IEnumerable<Book> FindBooksByAuthor(int authorId)
+        public IEnumerable<Book> FindBooksByAuthor(int authorId, int offset = 0, int amount = -1)
         {
             var ids =  _context.Set<BookAuthor>().Where(ba => ba.AuthorId == authorId)
                                                  .Select(ba => ba.BookId);
 
-            return _context.Set<Book>().Where(b => ids.Contains(b.Id)).ToList();
+            return amount < 0 ? _context.Set<Book>().Where(b => ids.Contains(b.Id))
+                                        .OrderBy(b => b.Title)
+                                        .Skip(offset)
+                                        .ToList() :
+                    _context.Set<Book>().Where(b => ids.Contains(b.Id))
+                                        .OrderBy(b => b.Title)
+                                        .Skip(offset)
+                                        .Take(amount)
+                                        .ToList();
         }
 
-        public IEnumerable<Book> FindBooksByTitleWithInfo(string title)
+        public IEnumerable<Book> FindBooksByTitleWithInfo(string title, int offset = 0, int amount = -1)
         {
-            var res = (from book in _context.Set<Book>()
+            var que = (from book in _context.Set<Book>()
                        where book.Title.Contains(title)
                        join ab in _context.Set<BookAuthor>()
                            on book.Id equals ab.BookId
@@ -112,7 +127,9 @@ namespace Librarian.Data.Repo.Impl
                             on gb.GenreId equals genre.Id
                             into genres
                        orderby book.Title, book.ReleaseDate
-                       select new { Book = book, Genres = genres, Authors = authors }).ToList();
+                       select new { Book = book, Genres = genres, Authors = authors }).Skip(offset);
+
+            var res = amount < 0 ? que.ToList() : que.Take(amount).ToList();
 
             return res.Select(tmp => new Book()
             {
@@ -127,7 +144,7 @@ namespace Librarian.Data.Repo.Impl
             });
         }
 
-        public IEnumerable<Book> FindBooksByAuthorWithInfo(int authorId)
+        public IEnumerable<Book> FindBooksByAuthorWithInfo(int authorId, int offset = 0, int amount = -1)
         {
             var bookIds = from book in _context.Set<Book>()
                          join ab in _context.Set<BookAuthor>()
@@ -135,7 +152,7 @@ namespace Librarian.Data.Repo.Impl
                          where ab.AuthorId == authorId
                           select book.Id;
 
-            var res = (from book in _context.Set<Book>()
+            var que = (from book in _context.Set<Book>()
                        where bookIds.Contains(book.Id)
                        join ab in _context.Set<BookAuthor>()
                            on book.Id equals ab.BookId
@@ -148,7 +165,9 @@ namespace Librarian.Data.Repo.Impl
                             on gb.GenreId equals genre.Id
                             into genres
                        orderby book.Title, book.ReleaseDate
-                       select new { Book = book, Genres = genres, Authors = authors }).ToList();
+                       select new { Book = book, Genres = genres, Authors = authors }).Skip(amount);
+
+            var res = amount < 0 ? que.ToList() : que.Take(amount).ToList();
 
             return res.Select(tmp => new Book()
             {

@@ -9,5 +9,6 @@ namespace Librarian.Gui.Services.Abstract
         ObservableCollection<BookModel> FindBooksByAuthor(int authorId);
         BookModel GetBookWithInfo(int id);
         ObservableCollection<BookModel> GetBooks();
+        ObservableCollection<BookModel> GetPage(int offset, int amount);
     }
 }

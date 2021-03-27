@@ -19,14 +19,14 @@ namespace Librarian.Domain.Services.Impl
             Factory = fact;
         }
 
-        public IEnumerable<Book> FindBooksByTitle([NotNull]string title)
+        public IEnumerable<Book> FindBooksByTitle([NotNull]string title, int offset = 0, int amount = -1)
         {
             var strategy = Factory.Create(FindBooksType.ByTitle);
 
             return strategy.Find(title);
         }
 
-        public IEnumerable<Book> FindBooksByAuthor(int authorId)
+        public IEnumerable<Book> FindBooksByAuthor(int authorId, int offset = 0, int amount = -1)
         {
             var strategy = Factory.Create(FindBooksType.ByAuthor);
 
@@ -48,6 +48,11 @@ namespace Librarian.Domain.Services.Impl
         public IEnumerable<Book> GetBooks()
         {
             return Repository.FindAll();
+        }
+
+        public IEnumerable<Book> GetPage(int offset, int amount)
+        {
+            return Repository.GetPage(offset, amount);
         }
     }
 }

@@ -41,5 +41,11 @@ namespace Librarian.Gui.Services.Impl
 
         public BookModel GetBookWithInfo(int id) =>
             _mapper.Map(_service.GetBookWithInfo(id));
+
+        public ObservableCollection<BookModel> GetPage(int offset, int amount)
+        {
+            var res = _service.GetPage(offset, amount);
+            return new ObservableCollection<BookModel>(res.Select(r => _mapper.Map(r)));
+        }
     }
 }

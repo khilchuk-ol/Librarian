@@ -19,14 +19,14 @@ namespace Librarian.Domain.Services.Impl
             Factory = factory;
         }
 
-        public IEnumerable<Reader> FindReadersByName([NotNull]string query)
+        public IEnumerable<Reader> FindReadersByName([NotNull]string query, int offset = 0, int amount = -1)
         {
             var strategy = Factory.Create(FindReadersType.ByName);
 
             return strategy.Find(query);
         }
 
-        public IEnumerable<Reader> FindReaderByTicket(int number) 
+        public IEnumerable<Reader> FindReaderByTicket(int number, int offset = 0, int amount = -1) 
         {
             if(number < 0)
             {
@@ -51,6 +51,11 @@ namespace Librarian.Domain.Services.Impl
         public IEnumerable<Reader> GetReaders()
         {
             return Repository.FindAll();
+        }
+
+        public IEnumerable<Reader> GetPage(int offset, int amount)
+        {
+            return Repository.GetPage(offset, amount);
         }
     }
 }

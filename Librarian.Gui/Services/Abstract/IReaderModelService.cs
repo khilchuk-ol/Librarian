@@ -9,5 +9,6 @@ namespace Librarian.Gui.Services.Abstract
         ObservableCollection<ReaderModel> FindReaderByTicket(int number);
         ReaderModel GetReaderWithInfo(int id);
         ObservableCollection<ReaderModel> GetReaders();
+        ObservableCollection<ReaderModel> GetPage(int offset, int amount);
     }
 }

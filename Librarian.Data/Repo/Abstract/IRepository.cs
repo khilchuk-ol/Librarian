@@ -9,5 +9,6 @@ namespace Librarian.Data.Repo.Abstract
         void Remove(TEntity item);
         IEnumerable<TEntity> FindAll();
         TEntity Find(TIdentity id);
+        IEnumerable<TEntity> GetPage(int offset, int amount);
     }
 }
