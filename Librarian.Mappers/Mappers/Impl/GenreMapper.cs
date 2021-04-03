@@ -1,6 +1,7 @@
 ﻿using Librarian.Domain.Models.Core;
 using Librarian.Gui.Models;
 using Librarian.Mappers.Abstract;
+using System;
 
 namespace Librarian.Mappers.Impl
 {
@@ -19,5 +20,12 @@ namespace Librarian.Mappers.Impl
                 Id = from.Id,
                 Name = from.Name
             };
+
+        public void Map(GenreModel from, Genre to)
+        {
+            if (to.Id != from.Id)
+                throw new ArgumentException("Cannot map. Object are not related");
+            to.Name = from.Name;
+        }
     }
 }
